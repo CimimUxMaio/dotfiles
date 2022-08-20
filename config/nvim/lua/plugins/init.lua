@@ -7,11 +7,8 @@ local pluggedPath = vim.fn.stdpath("data") .. "/plugged/"
 vim.call("plug#begin", pluggedPath)
 
 
-Plug "vimwiki/vimwiki"
-
 Plug "nvim-lua/plenary.nvim"  -- required by 'telescope'
 Plug "nvim-telescope/telescope.nvim"
-
 
 Plug "kyazdani42/nvim-web-devicons"
 Plug "kyazdani42/nvim-tree.lua"
