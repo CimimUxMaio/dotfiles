@@ -116,3 +116,8 @@ if [ -z "$TMUX" ]; then
     tmux new -A -s default
 fi
 
+
+if [[ -f ~/.custom_bash ]]; then
+    . ~/.custom_bash
+fi
+
