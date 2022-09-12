@@ -19,6 +19,8 @@ local ctx_cstr_internal = require("ts_context_commentstring.internal")
 
 
 comment.setup {
+    ignore = "^$",  -- Ignore empty lines.
+
     pre_hook = function(ctx)
         local location = nil
         if ctx.ctype == com_utils.ctype.block then
