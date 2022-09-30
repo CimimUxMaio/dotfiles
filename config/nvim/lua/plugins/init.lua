@@ -64,6 +64,8 @@ Plug "petertriho/nvim-scrollbar"
 
 Plug 'phaazon/hop.nvim'
 
+Plug "jose-elias-alvarez/null-ls.nvim"
+
 vim.call("plug#end")
 
 
@@ -88,5 +90,6 @@ require("plugins.colorschemes")
 require("plugins.hlslens")
 require("plugins.scrollbar")
 require("plugins.hop")
+require("plugins.null-ls")
 
 

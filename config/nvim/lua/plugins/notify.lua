@@ -3,6 +3,7 @@ local utils = require("utils")
 local status_ok, notify = pcall(require, "notify")
 if not status_ok then
     utils.warn_module_import_fail("notify")
+    return
 end
 
 
