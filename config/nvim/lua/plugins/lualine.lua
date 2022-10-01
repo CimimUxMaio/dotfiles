@@ -158,7 +158,7 @@ ins_left {
 }
 
 ins_left {
-  -- Lsp server name .
+  -- Lsp server name.
   function()
     local msg = 'No Active Lsp'
     local buf_ft = vim.api.nvim_buf_get_option(0, 'filetype')
@@ -169,7 +169,12 @@ ins_left {
     for _, client in ipairs(clients) do
       local filetypes = client.config.filetypes
       if filetypes and vim.fn.index(filetypes, buf_ft) ~= -1 then
-        return client.name
+        -- Depreoritize null-ls.
+        if client.name == "null-ls" then
+            msg = "null-ls"
+        else
+            return client.name
+        end
       end
     end
     return msg
