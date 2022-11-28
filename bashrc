@@ -5,7 +5,7 @@ case $- in
 esac
 
 # history file location.
-HISTFILE="~/.cache/bash"
+HISTFILE="$HOME/.cache/bash/bash_history"
 
 # don't put duplicate lines or lines starting with space in the history.
 # See bash(1) for more options
