@@ -106,7 +106,10 @@ fi
 
 alias ll="ls -l"
 alias ..="cd .."
+
 alias vim="nvim"
+
+alias py="python3"
 
 
 # TMUX
