@@ -1,15 +1,6 @@
-local utils = require("utils")
-
-local status_ok, telescope = pcall(require, "telescope")
-if not status_ok then
-    utils.warn_module_import_fail("telescope")
-    return
-end
-
-
 local actions = require("telescope.actions")
 
-telescope.setup({
+require("telescope").setup({
     defaults = {
         mappings = {
             i = {

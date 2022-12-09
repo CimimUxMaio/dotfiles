@@ -1,51 +1,3 @@
-local utils = require("utils")
-
-local M = {}
-
-local sign_icons = utils.icons.signs
-
-M.setup = function()
-  local signs = {
-    { name = "DiagnosticSignError", text = sign_icons.Error },
-    { name = "DiagnosticSignWarn", text = sign_icons.Warn },
-    { name = "DiagnosticSignHint", text = sign_icons.Hint },
-    { name = "DiagnosticSignInfo", text = sign_icons.Info },
-  }
-
-  for _, sign in ipairs(signs) do
-    vim.fn.sign_define(sign.name, { texthl = sign.name, text = sign.text, numhl = "" })
-  end
-
-  local config = {
-    virtual_text = true,
-    signs = {
-      active = signs,
-    },
-    update_in_insert = true,
-    underline = true,
-    severity_sort = true,
-    float = {
-      focusable = false,
-      style = "minimal",
-      border = "rounded",
-      source = "always",
-      header = "",
-      prefix = "",
-    },
-  }
-
-  vim.diagnostic.config(config)
-
-  vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
-    border = "rounded",
-  })
-
-  vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, {
-    border = "rounded",
-  })
-end
-
-
 local function lsp_highlight_document(client)
   -- Set autocommands conditional on server_capabilities
   if client.server_capabilities.document_highlight then
@@ -61,7 +13,6 @@ local function lsp_highlight_document(client)
     )
   end
 end
-
 
 local function lsp_keymaps(bufnr)
   local opts = { noremap = true, silent = true }
@@ -89,22 +40,22 @@ local function lsp_keymaps(bufnr)
   vim.cmd [[ command! Format execute 'lua vim.lsp.buf.formatting()' ]]
 end
 
+local function lsp_attach(client, bufnr)
+  local buf_command = vim.api.nvim_buf_create_user_command
 
-M.on_attach = function(client, bufnr)
-  if client.name == "tsserver" then
-    client.resolved_capabilities.document_formatting = false
-  end
   lsp_keymaps(bufnr)
   lsp_highlight_document(client)
+
+  buf_command(bufnr, "Format", function()
+    vim.lsp.buf.format()
+  end, {desc = "Format buffer with language server"})
 end
 
-local capabilities = vim.lsp.protocol.make_client_capabilities()
-
-local status_ok, cmp_nvim_lsp = pcall(require, "cmp_nvim_lsp")
-if not status_ok then
-  return
-end
-
-M.capabilities = cmp_nvim_lsp.update_capabilities(capabilities)
-
-return M
+require("mason-lspconfig").setup_handlers({
+  function(server_name)
+    require("lspconfig")[server_name].setup({
+      on_attach = lsp_attach,
+      capabilities = require("cmp_nvim_lsp").default_capabilities()
+    })
+  end
+})

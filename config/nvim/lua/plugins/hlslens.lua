@@ -1,11 +1,4 @@
-local utils = require("utils")
-
-local status_ok, _ = pcall(require, "hlslens")
-if not status_ok then
-    utils.warn_module_import_fail("hlslens")
-    return
-end
-
+require("hlslens").setup()
 
 local kopts = {noremap = true, silent = true}
 

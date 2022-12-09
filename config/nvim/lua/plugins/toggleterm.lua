@@ -1,13 +1,5 @@
-local utils = require("utils")
 
-local status_ok, toggleterm = pcall(require, "toggleterm")
-if not status_ok then
-    utils.warn_module_import_fail("toggleterm")
-    return
-end
-
-
-toggleterm.setup({
+require("toggleterm").setup({
     size = 15,
     -- open_mapping = "|",
     hide_numbers = true,

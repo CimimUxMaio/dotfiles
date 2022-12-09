@@ -1,14 +1,4 @@
-local utils = require("utils")
-
-local status_ok, gitsigns = pcall(require, "gitsigns")
-if not status_ok then
-    utils.warn_module_import_fail("gitsigns")
-    return
-end
-
-
--- Use defaults
-gitsigns.setup {
+require("gitsigns").setup {
     signs = {
         add          = {hl = 'GitSignsAdd'   , text = '│', numhl='GitSignsAddNr'   , linehl='GitSignsAddLn'},
         change       = {hl = 'GitSignsChange', text = '│', numhl='GitSignsChangeNr', linehl='GitSignsChangeLn'},

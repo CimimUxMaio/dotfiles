@@ -1,24 +1,9 @@
 local utils = require("utils")
-
-
-local cmp_status_ok, cmp = pcall(require, "cmp")
-if not cmp_status_ok then
-    utils.warn_module_import_fail("cmp")
-    return
-end
-
-
-
-local snip_status_ok, luasnip = pcall(require, "luasnip")
-if not snip_status_ok then
-    utils.warn_module_import_fail("luasnip")
-    return
-end
+local cmp = require("cmp")
+local luasnip = require("luasnip")
 
 
 require("luasnip/loaders/from_vscode").lazy_load()
-
-
 
 local cmp_sources = {
     { name = "nvim_lsp" },
@@ -27,16 +12,12 @@ local cmp_sources = {
     { name = "buffer" }
 }
 
-
-
 local check_backspace = function()
     local col = vim.fn.col "." - 1
     return col == 0 or vim.fn.getline("."):sub(col, col):match "%s"
 end
 
-
 local force_confirm = cmp.mapping.confirm({ select = true })
-
 
 local super_tab = function(fallback)
     if cmp.visible() then
@@ -62,8 +43,6 @@ local inverse_super_tab = function(fallback)
         fallback()
     end
 end
-
-
 
 cmp.setup {
     snippet = {

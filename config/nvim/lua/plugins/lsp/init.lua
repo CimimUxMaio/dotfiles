@@ -1,8 +1,6 @@
-local ok, _ = pcall(require, "lspconfig")
-if not ok then
-    return
-end
 
 
-require("plugins.lsp.lsp-installer")
-require("plugins.lsp.handlers").setup()
+require("plugins.lsp.diagnostics")
+require("mason").setup()
+require("mason-lspconfig").setup()
+require("plugins.lsp.client")

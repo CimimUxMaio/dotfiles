@@ -1,95 +1,151 @@
-local Plug = vim.fn["plug#"]
+local ensure_packer = function()
+  local fn = vim.fn
+  local install_path = fn.stdpath("data") .. "/site/pack/packer/start/packer.nvim"
+  if fn.empty(fn.glob(install_path)) > 0 then
+    fn.system({ "git", "clone", "--depth", "1", "https://github.com/wbthomason/packer.nvim", install_path })
+    vim.cmd [[packadd packer.nvim]]
+    return true
+  end
+  return false
+end
+
+local get_config = function(name)
+  return string.format("require('plugins.%s')", name)
+end
+
+local packer = require("packer")
+
+-- For packer to use a popup window.
+packer.init {
+  display = {
+    open_fn = function()
+      return require("packer.util").float { border = "rounded" }
+    end
+  }
+}
+
+local packer_bootstrap = ensure_packer()
+
+return packer.startup(function(use)
+  use "wbthomason/packer.nvim"
 
 
+  use {
+    "nvim-treesitter/nvim-treesitter",
+    requires = {
+      "JoosepAlviste/nvim-ts-context-commentstring",
+      "windwp/nvim-ts-autotag",
+      "nvim-treesitter/nvim-treesitter-refactor",
+    },
+    run = ":TSUpdate",
+    config = get_config("treesitter")
+  }
 
-local pluggedPath = vim.fn.stdpath("data") .. "/plugged/"
+  use {
+    "nvim-telescope/telescope.nvim",
+    requires = "nvim-lua/plenary.nvim",
+    config = get_config("telescope")
+  }
 
-vim.call("plug#begin", pluggedPath)
+  use {
+    "nvim-tree/nvim-tree.lua",
+    requires = "nvim-tree/nvim-web-devicons",
+    config = get_config("nvim-tree")
+  }
 
+  use {
+    "rcarriga/nvim-notify",
+    config = get_config("notify")
+  }
 
-Plug "nvim-lua/plenary.nvim"  -- required by 'telescope'
-Plug "nvim-telescope/telescope.nvim"
+  use {
+    "lunarvim/darkplus.nvim",
+    config = "vim.cmd [[colorscheme darkplus]]"
+  }
 
-Plug "kyazdani42/nvim-web-devicons"
-Plug "kyazdani42/nvim-tree.lua"
+  use {
+    "hrsh7th/nvim-cmp",
+    requires = {
+      "hrsh7th/cmp-buffer",
+      "hrsh7th/cmp-path",
+      "hrsh7th/cmp-nvim-lsp",
+      { "saadparwaiz1/cmp_luasnip", requires = "L3MON4D3/LuaSnip" },
+    },
+    config = get_config("completion")
+  }
 
-Plug "rafi/awesome-vim-colorschemes"
-Plug "lunarvim/darkplus.nvim"
+  use {
+    "windwp/nvim-autopairs",
+    requires = "hrsh7th/nvim-cmp",
+    config = get_config("autopairs")
+  }
 
-Plug "hrsh7th/nvim-cmp"
-Plug "hrsh7th/cmp-buffer"
-Plug "hrsh7th/cmp-path"
-Plug "hrsh7th/cmp-nvim-lsp"
+  use {
+    "williamboman/mason.nvim",
+    requires = {
+      "hrsh7th/nvim-cmp",
+      "williamboman/mason-lspconfig",
+      "neovim/nvim-lspconfig",
+    },
+    config = get_config("lsp")
+  }
 
-Plug "L3MON4D3/LuaSnip"
-Plug "saadparwaiz1/cmp_luasnip"
+  use {
+    "akinsho/toggleterm.nvim",
+    config = get_config("toggleterm")
+  }
 
-Plug "neovim/nvim-lspconfig"
-Plug "williamboman/nvim-lsp-installer"
+  use {
+    "nvim-lualine/lualine.nvim",
+    config = get_config("lualine")
+  }
 
-Plug "akinsho/toggleterm.nvim"
+  use {
+    "romgrk/barbar.nvim",
+    requires = "nvim-tree/nvim-web-devicons",
+    config = get_config("barbar")
+  }
 
-Plug "nvim-lualine/lualine.nvim"
+  use {
+    "stevearc/dressing.nvim"
+  }
 
-Plug "windwp/nvim-autopairs"
+  use {
+    "norcalli/nvim-colorizer.lua",
+    config = function()
+      require("colorizer").setup()
+    end
+  }
 
-Plug ("nvim-treesitter/nvim-treesitter", { run = ":TSUpdate" })
+  use {
+    "numToStr/Comment.nvim",
+    requires = "JoosepAlviste/nvim-ts-context-commentstring",
+    config = get_config("comments")
+  }
 
-Plug "JoosepAlviste/nvim-ts-context-commentstring"
-Plug "numToStr/Comment.nvim"
+  use {
+    "kevinhwang91/nvim-hlslens",
+    config = get_config("hlslens")
+  }
 
-Plug "romgrk/barbar.nvim"
+  use {
+    "petertriho/nvim-scrollbar",
+    config = get_config("scrollbar"),
+    requires = "kevinhwang91/nvim-hlslens"
+  }
 
-Plug "rcarriga/nvim-notify"
+  use {
+    "phaazon/hop.nvim",
+    config = get_config("hop")
+  }
 
-Plug "lewis6991/gitsigns.nvim"
+  use {
+    "lewis6991/gitsigns.nvim",
+    config = get_config("gitsigns")
+  }
 
-Plug "goolord/alpha-nvim"
-
-Plug "nvim-lua/plenary.nvim"
-
-Plug "Shatur/neovim-session-manager"
-
-Plug "stevearc/dressing.nvim"
-
-Plug "norcalli/nvim-colorizer.lua"
-
-Plug "windwp/nvim-ts-autotag"
-
-Plug "nvim-treesitter/nvim-treesitter-refactor"
-
-Plug "kevinhwang91/nvim-hlslens"
-
-Plug "petertriho/nvim-scrollbar"
-
-Plug 'phaazon/hop.nvim'
-
-Plug "jose-elias-alvarez/null-ls.nvim"
-
-vim.call("plug#end")
-
-
-
-require("plugins.nvim-tree")
-require("plugins.telescope")
-require("plugins.dressing")
-require("plugins.toggleterm")
-require("plugins.lualine")
-require("plugins.treesitter")
-require("plugins.barbar")
-require("plugins.alpha")
-require("plugins.notify")
-require("plugins.nvim_colorizer")
-require("plugins.gitsigns")
-require("plugins.comments")
-require("plugins.lsp")
-require("plugins.completion")
-require("plugins.autopairs")
-require("plugins.session_manager")
-require("plugins.colorschemes")
-require("plugins.hlslens")
-require("plugins.scrollbar")
-require("plugins.hop")
-require("plugins.null-ls")
-
-
+  -- Automatically set up your configuration after cloning packer.nvim
+  if packer_bootstrap then
+    packer.sync()
+  end
+end)

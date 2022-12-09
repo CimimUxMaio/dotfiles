@@ -1,10 +1,5 @@
 local utils = require("utils")
-
-local status_ok, nvim_tree = pcall(require, "nvim-tree")
-if not status_ok then
-    utils.warn_module_import_fail("nvim-tree")
-    return
-end
+local nvim_tree = require("nvim-tree")
 
 -- vim.g.nvim_tree_icons = {
 --     default = "",
