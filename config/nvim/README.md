@@ -12,9 +12,13 @@ sudo apt-get install neovim
     - `choco install neovim --pre` (pre-release)
 
 
+Be sure to install build-essential:
+- `sudo apt install build-essential`
+
+
 For copy and paste to work correctly:
 - _Ubuntu:_ `sudo apt install xsel`
-    - See `:healthcheck`
+    - See `:checkhealth`
 
 
 Install 'Hack Nerd Font' for icons to display correctly:
