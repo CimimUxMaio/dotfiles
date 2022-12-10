@@ -63,6 +63,8 @@ return packer.startup(function(use)
     config = "vim.cmd [[colorscheme darkplus]]"
   }
 
+  use "lukas-reineke/indent-blankline.nvim"
+
   use {
     "hrsh7th/nvim-cmp",
     requires = {
