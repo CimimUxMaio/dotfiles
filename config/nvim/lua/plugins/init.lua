@@ -13,6 +13,9 @@ local get_config = function(name)
   return string.format("require('plugins.%s')", name)
 end
 
+
+local packer_bootstrap = ensure_packer()
+
 local packer = require("packer")
 
 -- For packer to use a popup window.
@@ -23,8 +26,6 @@ packer.init {
     end
   }
 }
-
-local packer_bootstrap = ensure_packer()
 
 return packer.startup(function(use)
   use "wbthomason/packer.nvim"
