@@ -84,6 +84,11 @@ return packer.startup(function(use)
   }
 
   use {
+    "jose-elias-alvarez/null-ls.nvim",
+    config = get_config("null-ls")
+  }
+
+  use {
     "williamboman/mason.nvim",
     requires = {
       "hrsh7th/nvim-cmp",
