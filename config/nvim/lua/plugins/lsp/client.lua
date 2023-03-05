@@ -43,6 +43,10 @@ end
 local function lsp_attach(client, bufnr)
   local buf_command = vim.api.nvim_buf_create_user_command
 
+  if client.name == "tsserver" then
+    client.server_capabilities.document_formatting = false
+  end
+
   lsp_keymaps(bufnr)
   lsp_highlight_document(client)
 
