@@ -15,6 +15,7 @@ null_ls.setup({
     diagnostics.misspell,
 
     code_actions.eslint,
+    code_actions.gitsigns
   }
 })
 

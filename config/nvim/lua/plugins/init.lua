@@ -147,6 +147,8 @@ return packer.startup(function(use)
     config = get_config("hop")
   }
 
+  use "https://tpope.io/vim/fugitive.git"
+
   use {
     "lewis6991/gitsigns.nvim",
     config = get_config("gitsigns")
