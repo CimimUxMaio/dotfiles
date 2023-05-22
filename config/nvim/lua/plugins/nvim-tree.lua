@@ -11,6 +11,7 @@ local function on_attach(bufnr)
   end
 
   vim.keymap.set('n', 'a', api.fs.create, opts('Create'))
+  vim.keymap.set('n', 'd', api.fs.remove, opts('Remove'))
   vim.keymap.set('n', 'p', api.fs.paste, opts('Paste'))
   vim.keymap.set('n', 'q', api.tree.close, opts('Close'))
   vim.keymap.set('n', 'r', api.fs.rename, opts('Rename'))

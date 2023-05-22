@@ -122,6 +122,11 @@ _G.packer_plugins = {
     path = "/home/cimimuxmaio/.local/share/nvim/site/pack/packer/start/dressing.nvim",
     url = "https://github.com/stevearc/dressing.nvim"
   },
+  ["fugitive.git"] = {
+    loaded = true,
+    path = "/home/cimimuxmaio/.local/share/nvim/site/pack/packer/start/fugitive.git",
+    url = "https://tpope.io/vim/fugitive"
+  },
   ["gitsigns.nvim"] = {
     config = { "require('plugins.gitsigns')" },
     loaded = true,
@@ -256,23 +261,10 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/cimimuxmaio/.local/share/nvim/site/pack/packer/start/toggleterm.nvim",
     url = "https://github.com/akinsho/toggleterm.nvim"
-  },
-  ["vim-fugitive.git"] = {
-    loaded = true,
-    path = "/home/cimimuxmaio/.local/share/nvim/site/pack/packer/start/vim-fugitive.git",
-    url = "https://github.com/tpope/vim-fugitive.git"
   }
 }
 
 time([[Defining packer_plugins]], false)
--- Config for: nvim-treesitter
-time([[Config for nvim-treesitter]], true)
-require('plugins.treesitter')
-time([[Config for nvim-treesitter]], false)
--- Config for: mason.nvim
-time([[Config for mason.nvim]], true)
-require('plugins.lsp')
-time([[Config for mason.nvim]], false)
 -- Config for: null-ls.nvim
 time([[Config for null-ls.nvim]], true)
 require('plugins.null-ls')
@@ -321,10 +313,10 @@ time([[Config for toggleterm.nvim]], false)
 time([[Config for nvim-notify]], true)
 require('plugins.notify')
 time([[Config for nvim-notify]], false)
--- Config for: nvim-scrollbar
-time([[Config for nvim-scrollbar]], true)
-require('plugins.scrollbar')
-time([[Config for nvim-scrollbar]], false)
+-- Config for: barbar.nvim
+time([[Config for barbar.nvim]], true)
+require('plugins.barbar')
+time([[Config for barbar.nvim]], false)
 -- Config for: lualine.nvim
 time([[Config for lualine.nvim]], true)
 require('plugins.lualine')
@@ -333,10 +325,18 @@ time([[Config for lualine.nvim]], false)
 time([[Config for nvim-tree.lua]], true)
 require('plugins.nvim-tree')
 time([[Config for nvim-tree.lua]], false)
--- Config for: barbar.nvim
-time([[Config for barbar.nvim]], true)
-require('plugins.barbar')
-time([[Config for barbar.nvim]], false)
+-- Config for: nvim-treesitter
+time([[Config for nvim-treesitter]], true)
+require('plugins.treesitter')
+time([[Config for nvim-treesitter]], false)
+-- Config for: mason.nvim
+time([[Config for mason.nvim]], true)
+require('plugins.lsp')
+time([[Config for mason.nvim]], false)
+-- Config for: nvim-scrollbar
+time([[Config for nvim-scrollbar]], true)
+require('plugins.scrollbar')
+time([[Config for nvim-scrollbar]], false)
 
 _G._packer.inside_compile = false
 if _G._packer.needs_bufread == true then
