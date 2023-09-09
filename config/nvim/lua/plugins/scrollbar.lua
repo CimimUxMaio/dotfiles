@@ -1,8 +1,13 @@
+local _M = {}
 
-require("scrollbar").setup({
+function _M.setup()
+  require("scrollbar").setup({
     handle = {
-        color = "#BBBBBB"
+      color = "#BBBBBB"
     }
-})
+  })
 
-require("scrollbar.handlers.search").setup()
+  require("scrollbar.handlers.search").setup()
+end
+
+return _M

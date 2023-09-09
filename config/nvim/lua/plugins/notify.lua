@@ -1,72 +1,78 @@
-local utils = require("utils")
-local notify = require("notify")
+local _M = {}
 
-vim.notify = notify
+function _M.setup()
+  local utils = require("utils")
+  local notify = require("notify")
 
-local signs = utils.icons.signs
+  vim.notify = notify
 
-notify.setup({
-  -- Animation style (see below for details)
-  stages = "slide",
+  local signs = utils.icons.signs
 
-  -- Function called when a new window is opened, use for changing win settings/config
-  on_open = nil,
+  notify.setup({
+    -- Animation style (see below for details)
+    stages = "slide",
 
-  -- Function called when a window is closed
-  on_close = nil,
+    -- Function called when a new window is opened, use for changing win settings/config
+    on_open = nil,
 
-  -- Render function for notifications. See notify-render()
-  render = "default",
+    -- Function called when a window is closed
+    on_close = nil,
 
-  -- Default timeout for notifications
-  timeout = 3000,
+    -- Render function for notifications. See notify-render()
+    render = "default",
 
-  -- Max number of columns for messages
-  max_width = 60,
-  -- Max number of lines for a message
-  max_height = nil,
+    -- Default timeout for notifications
+    timeout = 3000,
 
-  -- For stages that change opacity this is treated as the highlight behind the window
-  -- Set this to either a highlight group, an RGB hex value e.g. "#000000" or a function returning an RGB code for dynamic values
-  background_colour = "Normal",
+    -- Max number of columns for messages
+    max_width = 60,
+    -- Max number of lines for a message
+    max_height = nil,
 
-  -- Minimum width for notification windows
-  minimum_width = 40,
+    -- For stages that change opacity this is treated as the highlight behind the window
+    -- Set this to either a highlight group, an RGB hex value e.g. "#000000" or a function returning an RGB code for dynamic values
+    background_colour = "Normal",
 
-  -- Icons for the different levels
-  icons = {
-        INFO = signs.Info,
-        HINT = signs.Hint,
-        ERROR = signs.Error,
-        TRACE = signs.Trace,
-        WARN = signs.Warn,
-        DEBUG = signs.Debug
+    -- Minimum width for notification windows
+    minimum_width = 40,
+
+    -- Icons for the different levels
+    icons = {
+      INFO = signs.Info,
+      HINT = signs.Hint,
+      ERROR = signs.Error,
+      TRACE = signs.Trace,
+      WARN = signs.Warn,
+      DEBUG = signs.Debug
     },
-})
+  })
 
 
 
--- Highlights
+  -- Highlights
 
-vim.cmd [[
-    highlight NotifyERRORBorder  guifg=#8A1F1F
-    highlight NotifyWARNBorder  guifg=#79491D
-    highlight NotifyINFOBorder  guifg=#4F6752
-    highlight NotifyDEBUGBorder  guifg=#8B8B8B
-    highlight NotifyTRACEBorder  guifg=#4F3552
-    highlight NotifyERRORIcon  guifg=#F70067
-    highlight NotifyWARNIcon  guifg=#F79000
-    highlight NotifyINFOIcon  guifg=#A9FF68
-    highlight NotifyDEBUGIcon  guifg=#8B8B8B
-    highlight NotifyTRACEIcon  guifg=#D484FF
-    highlight NotifyERRORTitle  guifg=#F70067
-    highlight NotifyWARNTitle  guifg=#F79000
-    highlight NotifyINFOTitle  guifg=#A9FF68
-    highlight NotifyDEBUGTitle  guifg=#8B8B8B
-    highlight NotifyTRACETitle  guifg=#D484FF
-    highlight link NotifyERRORBody Normal
-    highlight link NotifyWARNBody Normal
-    highlight link NotifyINFOBody Normal
-    highlight link NotifyDEBUGBody Normal
-    highlight link NotifyTRACEBody Normal
-]]
+  vim.cmd [[
+      highlight NotifyERRORBorder  guifg=#8A1F1F
+      highlight NotifyWARNBorder  guifg=#79491D
+      highlight NotifyINFOBorder  guifg=#4F6752
+      highlight NotifyDEBUGBorder  guifg=#8B8B8B
+      highlight NotifyTRACEBorder  guifg=#4F3552
+      highlight NotifyERRORIcon  guifg=#F70067
+      highlight NotifyWARNIcon  guifg=#F79000
+      highlight NotifyINFOIcon  guifg=#A9FF68
+      highlight NotifyDEBUGIcon  guifg=#8B8B8B
+      highlight NotifyTRACEIcon  guifg=#D484FF
+      highlight NotifyERRORTitle  guifg=#F70067
+      highlight NotifyWARNTitle  guifg=#F79000
+      highlight NotifyINFOTitle  guifg=#A9FF68
+      highlight NotifyDEBUGTitle  guifg=#8B8B8B
+      highlight NotifyTRACETitle  guifg=#D484FF
+      highlight link NotifyERRORBody Normal
+      highlight link NotifyWARNBody Normal
+      highlight link NotifyINFOBody Normal
+      highlight link NotifyDEBUGBody Normal
+      highlight link NotifyTRACEBody Normal
+  ]]
+end
+
+return _M

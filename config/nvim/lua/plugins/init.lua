@@ -1,161 +1,151 @@
-local ensure_packer = function()
-  local fn = vim.fn
-  local install_path = fn.stdpath("data") .. "/site/pack/packer/start/packer.nvim"
-  if fn.empty(fn.glob(install_path)) > 0 then
-    fn.system({ "git", "clone", "--depth", "1", "https://github.com/wbthomason/packer.nvim", install_path })
-    vim.cmd [[packadd packer.nvim]]
-    return true
-  end
-  return false
+-- Bootstrap Lazy
+
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+
+if not vim.loop.fs_stat(lazypath) then
+  vim.fn.system({
+    "git",
+    "clone",
+    "--filter=blob:none",
+    "https://github.com/folke/lazy.nvim.git",
+    "--branch=stable", -- latest stable release
+    lazypath,
+  })
 end
 
-local get_config = function(name)
-  return string.format("require('plugins.%s')", name)
-end
+vim.opt.rtp:prepend(lazypath)
 
 
-local packer_bootstrap = ensure_packer()
+-- Plugins
 
-local packer = require("packer")
-
--- For packer to use a popup window.
-packer.init {
-  display = {
-    open_fn = function()
-      return require("packer.util").float { border = "rounded" }
-    end
-  }
-}
-
-return packer.startup(function(use)
-  use "wbthomason/packer.nvim"
-
-
-  use {
+require("lazy").setup({
+  {
     "nvim-treesitter/nvim-treesitter",
-    requires = {
+    name = "treesitter",
+    dependencies = {
       "JoosepAlviste/nvim-ts-context-commentstring",
       "windwp/nvim-ts-autotag",
       "nvim-treesitter/nvim-treesitter-refactor",
     },
-    run = ":TSUpdate",
-    config = get_config("treesitter")
-  }
+    config = require("plugins.treesitter").setup
+  },
 
-  use {
+  {
     "nvim-telescope/telescope.nvim",
-    requires = "nvim-lua/plenary.nvim",
-    config = get_config("telescope")
-  }
+    dependencies = { "nvim-lua/plenary.nvim" },
+    config = require("plugins.telescope").setup
+  },
 
-  use {
+  {
     "nvim-tree/nvim-tree.lua",
-    requires = "nvim-tree/nvim-web-devicons",
-    config = get_config("nvim-tree")
-  }
+    dependencies = { "nvim-tree/nvim-web-devicons" },
+    config = require("plugins.nvim-tree").setup
+  },
 
-  use {
+  {
     "rcarriga/nvim-notify",
-    config = get_config("notify")
-  }
+    config = require("plugins.notify").setup
+  },
 
-  use {
+  {
     "lunarvim/darkplus.nvim",
-    config = "vim.cmd [[colorscheme darkplus]]"
-  }
+    lazy = false,
+    config = function()
+      vim.cmd [[colorscheme darkplus]]
+    end
+  },
 
-  use "lukas-reineke/indent-blankline.nvim"
+  "lukas-reineke/indent-blankline.nvim",
 
-  use {
+  {
     "hrsh7th/nvim-cmp",
-    requires = {
+    dependencies = {
       "hrsh7th/cmp-buffer",
       "hrsh7th/cmp-path",
       "hrsh7th/cmp-nvim-lsp",
-      { "saadparwaiz1/cmp_luasnip", requires = "L3MON4D3/LuaSnip" },
+      { "saadparwaiz1/cmp_luasnip", dependencies = { "L3MON4D3/LuaSnip" } },
     },
-    config = get_config("completion")
-  }
+    config = require("plugins.completion").setup
+  },
 
-  use {
+  {
     "windwp/nvim-autopairs",
-    requires = "hrsh7th/nvim-cmp",
-    config = get_config("autopairs")
-  }
+    dependencies = { "hrsh7th/nvim-cmp" },
+    config = require("plugins.autopairs").setup
+  },
 
-  use {
-    "jose-elias-alvarez/null-ls.nvim",
-    config = get_config("null-ls")
-  }
-
-  use {
+  {
     "williamboman/mason.nvim",
-    requires = {
+    dependencies = {
       "hrsh7th/nvim-cmp",
       "williamboman/mason-lspconfig",
       "neovim/nvim-lspconfig",
+      "dressing"
     },
-    config = get_config("lsp")
-  }
+    config = require("plugins.lsp").setup
+  },
 
-  use {
+  {
     "akinsho/toggleterm.nvim",
-    config = get_config("toggleterm")
-  }
+    config = require("plugins.toggleterm").setup
+  },
 
-  use {
+  {
     "nvim-lualine/lualine.nvim",
-    config = get_config("lualine")
-  }
+    config = require("plugins.lualine").setup
+  },
 
-  use {
+  {
     "romgrk/barbar.nvim",
-    requires = "nvim-tree/nvim-web-devicons",
-    config = get_config("barbar")
-  }
+    dependencies = { "nvim-tree/nvim-web-devicons" },
+    config = require("plugins.barbar").setup
+  },
 
-  use {
-    "stevearc/dressing.nvim"
-  }
+  { "stevearc/dressing.nvim", name = "dressing", lazy = true },
 
-  use {
+  {
     "norcalli/nvim-colorizer.lua",
     config = function()
       require("colorizer").setup()
     end
-  }
+  },
 
-  use {
+  {
     "numToStr/Comment.nvim",
-    requires = "JoosepAlviste/nvim-ts-context-commentstring",
-    config = get_config("comments")
-  }
+    dependencies = { "treesitter", "JoosepAlviste/nvim-ts-context-commentstring" },
+    config = require("plugins.comments").setup
+  },
 
-  use {
+  {
     "kevinhwang91/nvim-hlslens",
-    config = get_config("hlslens")
-  }
+    config = require("plugins.hlslens").setup
+  },
 
-  use {
+  {
     "petertriho/nvim-scrollbar",
-    config = get_config("scrollbar"),
-    requires = "kevinhwang91/nvim-hlslens"
-  }
+    dependencies = { "kevinhwang91/nvim-hlslens" },
+    config = require("plugins.scrollbar").setup
+  },
 
-  use {
+  {
     "phaazon/hop.nvim",
-    config = get_config("hop")
-  }
+    config = require("plugins.hop").setup
+  },
 
-  use "https://tpope.io/vim/fugitive.git"
+  "https://tpope.io/vim/fugitive.git",
 
-  use {
+  {
     "lewis6991/gitsigns.nvim",
-    config = get_config("gitsigns")
-  }
+    config = require("plugins.gitsigns").setup
+  },
 
-  -- Automatically set up your configuration after cloning packer.nvim
-  if packer_bootstrap then
-    packer.sync()
-  end
-end)
+  {
+    "mfussenegger/nvim-lint",
+    config = require("plugins.linter").setup
+  },
+
+  {
+    "mhartington/formatter.nvim",
+    config = require("plugins.formatter").setup
+  }
+})

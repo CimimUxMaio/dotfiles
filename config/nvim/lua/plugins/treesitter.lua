@@ -1,38 +1,44 @@
-local configs = require("nvim-treesitter.configs")
+local _M = {}
 
-configs.setup {
-  ensure_installed = "all",
-  sync_install = false,
-  ignore_install = { "" },
-  highlight = {
-    enable = true,
-    disable = {},
-    aditional_vim_regex_highlighting = true
-  },
+function _M.setup()
+  local configs = require("nvim-treesitter.configs")
 
-  indent = { enable = true, disable = {} },
-
-  context_commentstring = {
-    enable = true
-  },
-
-  autotag = {
-    enable = true
-  },
-
-  refactor = {
-    smart_rename = {
+  configs.setup {
+    ensure_installed = "all",
+    sync_install = false,
+    ignore_install = { "" },
+    highlight = {
       enable = true,
-      keymaps = {
-        smart_rename = "<leader>r"
+      disable = {},
+      aditional_vim_regex_highlighting = true
+    },
+
+    indent = { enable = true, disable = {} },
+
+    context_commentstring = {
+      enable = true
+    },
+
+    autotag = {
+      enable = true
+    },
+
+    refactor = {
+      smart_rename = {
+        enable = true,
+        keymaps = {
+          smart_rename = "<leader>r"
+        }
       }
     }
   }
-}
 
--- Enable code folding using treesitter
-local opt = vim.opt
+  -- Enable code folding using treesitter
+  local opt = vim.opt
 
-opt.foldlevel = 20
-opt.foldmethod = "expr"
-opt.foldexpr = "nvim_treesitter#foldexpr()"
+  opt.foldlevel = 20
+  opt.foldmethod = "expr"
+  opt.foldexpr = "nvim_treesitter#foldexpr()"
+end
+
+return _M
