@@ -4,7 +4,7 @@ function _M.setup()
   local configs = require("nvim-treesitter.configs")
 
   configs.setup {
-    ensure_installed = "all",
+    ensure_installed = { "lua", "vim", "vimdoc", "python" },
     sync_install = false,
     ignore_install = { "" },
     highlight = {
