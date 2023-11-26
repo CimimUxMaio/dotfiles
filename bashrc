@@ -57,11 +57,18 @@ curr_dir='\e[1;34m[ In\e[m\e[0;34m \w\e[m\e[1;34m ]\e[m'
 # Git branch
 git_branch='\e[1;32m$(__git_ps1 "(%s)" 2> /dev/null)\e[m'
 
+# Status
+status_symbol='$([[ "$?" == 1 ]] && echo "\e[1;31m*\e[m" || echo " ")'
+
 # Prompt symbol
 prompt_symbol='\e[1;35m>>=\e[m $'
 
-# In <current directory path> <git branch?>\n>>=
-PS1="$curr_dir $git_branch\n$prompt_symbol "
+# Time
+prompt_time='\e[0;34m[\t]\e[m'
+
+lhs_prompt="$curr_dir $git_branch\n$prompt_symbol "
+rhs_prompt="$status_symbol $prompt_time"
+PS1="\[\e[s\e[$((COLUMNS - 11))G$rhs_prompt\e[u\]$lhs_prompt"
 
 # Colors for ls command (set LS_COLORS variable)
 if command -v dircolors &> /dev/null; then
