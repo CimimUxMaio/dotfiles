@@ -41,8 +41,8 @@ HISTCONTROL=ignoreboth
 shopt -s histappend
 
 # Set history length
-HISTSIZE=100
-HISTFILESIZE=200
+HISTSIZE=1000
+HISTFILESIZE=2000
 
 
 #### Appearance ####
