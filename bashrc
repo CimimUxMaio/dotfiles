@@ -90,6 +90,10 @@ fi
 
 
 #### ALIASES ####
+# If eza is available, replace ls with it
+if command -v eza &> /dev/null; then
+    alias ls="eza"
+fi
 alias ll="ls -l"
 alias ..="cd .."
 alias vim="nvim"
