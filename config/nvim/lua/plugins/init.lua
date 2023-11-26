@@ -110,6 +110,13 @@ require("lazy").setup({
 	},
 
 	{
+		"JoosepAlviste/nvim-ts-context-commentstring",
+		config = function()
+			vim.g.skip_ts_context_commentstring_module = true
+		end,
+	},
+
+	{
 		"numToStr/Comment.nvim",
 		dependencies = { "treesitter", "JoosepAlviste/nvim-ts-context-commentstring" },
 		config = require("plugins.comments").setup,
