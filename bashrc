@@ -43,8 +43,17 @@ HISTFILESIZE=200
 shopt -s checkwinsize
 
 # Set custom prompt
+# Current directory
+curr_dir='\e[1;34m[ In\e[m\e[0;34m \w\e[m\e[1;34m ]\e[m'
+
+# Git branch
+git_branch='\e[1;32m$(__git_ps1 "(%s)" 2> /dev/null)\e[m'
+
+# Prompt symbol
+prompt_symbol='\e[1;35m>>=\e[m $'
+
 # In <current directory path> <git branch?>\n>>=
-PS1='[In \w] $(__git_ps1 "(%s)" 2> /dev/null)\n>>= $ '
+PS1="$curr_dir $git_branch\n$prompt_symbol "
 
 
 #### QOL Options ####
