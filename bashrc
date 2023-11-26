@@ -6,6 +6,21 @@
 [[ $- != *i* ]] && return
 
 
+#### Check Requirements ####
+if [[ -f /usr/share/git/completion/git-prompt.sh ]]; then
+    echo -n "Loading /usr/share/git/completion/git-prompt.sh ... "
+    . /usr/share/git/completion/git-prompt.sh
+    echo "Done!"
+else
+    echo "WARNING: /usr/share/git/completion/git-prompt.sh file not found, check your GIT installation files."
+fi
+
+# Check if command was succesfully created
+if ! command -v __git_ps1 &> /dev/null; then
+    echo "WARNING: Command __git_ps1 not found."
+fi
+
+
 #### History File ####
 # History file location
 HISTFILE="$HOME/.cache/bash/bash_history"
@@ -26,19 +41,9 @@ HISTFILESIZE=200
 # update the values of LINES and COLUMNS.
 shopt -s checkwinsize
 
-# Get GIT prompt
-git_prompt() {
-    prompt=""
-    if command -v __git_ps1 &> /dev/null; then
-        prompt="$(__git_ps1 '(%s)')"
-    else
-        echo "WARNING: Command __git_ps1 not found."
-    fi
-    echo "$prompt"
-}
-
 # Set custom prompt
-PS1='In \w $(git_prompt)\n>>= '
+# In <current directory path> <git branch?>\n>>=
+PS1='In \w $(__git_ps1 "(%s)" 2> /dev/null)\n>>= '
 
 
 #### QOL Options ####
@@ -67,3 +72,5 @@ alias py="python3"
 if [[ -f ~/.custom_bash ]]; then
     . ~/.custom_bash
 fi
+
+echo "All set up :)"
