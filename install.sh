@@ -34,6 +34,7 @@ declare -A optional_configs
 optional_configs=(
     ["Neovim"]="ln -sf ~/dotfiles/config/nvim/ ~/.config/"
     ["Tmux"]="ln -sf ~/dotfiles/tmux.conf ~/.tmux.conf"
+    ["Alacritty"]="ln -sf ~/dotfiles/alacritty.yml ~/.alacritty.yml"
 )
 
 # Install optional configurations
