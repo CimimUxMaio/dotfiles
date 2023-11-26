@@ -2,22 +2,30 @@
 # ~/.bashrc
 #
 
+show_progress() {
+    echo -n -e "\e[1m$1 ...\e[m "
+    ${@:2}
+    echo -e "\e[0;32mDone!\e[m"
+}
+
+show_warning() {
+    echo -e "\e[1;33mWARNING:\e[m $1"
+}
+
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 
 
 #### Check Requirements ####
 if [[ -f /usr/share/git/completion/git-prompt.sh ]]; then
-    echo -n "Loading /usr/share/git/completion/git-prompt.sh ... "
-    . /usr/share/git/completion/git-prompt.sh
-    echo "Done!"
+    show_progress "Loading /usr/share/git/completion/git-prompt.sh" . /usr/share/git/completion/git-prompt.sh
 else
-    echo "WARNING: /usr/share/git/completion/git-prompt.sh file not found, check your GIT installation files."
+    show_warning "/usr/share/git/completion/git-prompt.sh file not found, check your GIT installation files."
 fi
 
 # Check if command was succesfully created
 if ! command -v __git_ps1 &> /dev/null; then
-    echo "WARNING: Command __git_ps1 not found."
+    show_warning "Command __git_ps1 not found."
 fi
 
 
@@ -55,6 +63,17 @@ prompt_symbol='\e[1;35m>>=\e[m $'
 # In <current directory path> <git branch?>\n>>=
 PS1="$curr_dir $git_branch\n$prompt_symbol "
 
+# Colors for ls command (set LS_COLORS variable)
+if command -v dircolors &> /dev/null; then
+    # Create file if it doesn't exist
+    if ! [[ -f $HOME/.dircolors ]]; then
+        show_progress "Creating $HOME/.dircolors" dircolors -p > $HOME/.dircolors
+    fi
+
+    # Load file
+    show_progress "Loading $HOME/.dircolors" eval $(dircolors $HOME/.dircolors)
+fi
+
 
 #### QOL Options ####
 # If set, the pattern "**" used in a pathname expansion context will
@@ -71,11 +90,9 @@ fi
 
 
 #### ALIASES ####
-alias ls='ls --color=auto'
 alias ll="ls -l"
 alias ..="cd .."
 alias vim="nvim"
-alias grep='grep --color=auto'
 alias py="python3"
 
 
@@ -84,4 +101,4 @@ if [[ -f ~/.custom_bash ]]; then
     . ~/.custom_bash
 fi
 
-echo "All set up :)"
+echo -e "\e[1;32mEverything set up :)\e[m"
