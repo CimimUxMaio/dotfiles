@@ -23,6 +23,7 @@ fi
 
 #### History File ####
 # History file location
+mkdir -p "$HOME/.cache/bash/"
 HISTFILE="$HOME/.cache/bash/bash_history"
 
 # Don't put duplicate lines or lines starting with space in the history.
@@ -43,7 +44,7 @@ shopt -s checkwinsize
 
 # Set custom prompt
 # In <current directory path> <git branch?>\n>>=
-PS1='In \w $(__git_ps1 "(%s)" 2> /dev/null)\n>>= '
+PS1='[In \w] $(__git_ps1 "(%s)" 2> /dev/null)\n>>= $ '
 
 
 #### QOL Options ####
@@ -54,8 +55,9 @@ shopt -s globstar
 
 #### TMUX ####
 ## Start a new (or attach to) default tmux session
+mkdir -p "$HOME/.tmux/logs/"
 if [ -z "$TMUX" ]; then
-    tmux new -A -s default
+    (cd "$HOME/.tmux/logs/" && tmux new -A -s default)
 fi
 
 
