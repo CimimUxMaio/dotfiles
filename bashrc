@@ -68,7 +68,8 @@ prompt_time='\e[0;34m[\t]\e[m'
 
 lhs_prompt="$curr_dir $git_branch\n$prompt_symbol "
 rhs_prompt="$status_symbol $prompt_time"
-PS1="\[\e[s\e[$((COLUMNS - 11))G$rhs_prompt\e[u\]$lhs_prompt"
+prompt_fill='\e[$((COLUMNS - 11))G'
+PS1="\[\e[s$prompt_fill$rhs_prompt\e[u\]$lhs_prompt"
 
 # Colors for ls command (set LS_COLORS variable)
 if command -v dircolors &> /dev/null; then
@@ -101,10 +102,14 @@ fi
 if command -v eza &> /dev/null; then
     alias ls="eza"
 fi
+
+# Utils
 alias ll="ls -l"
 alias ..="cd .."
 alias vim="nvim"
 alias py="python3"
+alias bashrc="source $HOME/.bashrc"
+
 
 
 #### Run Custom System Configuration ####
