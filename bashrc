@@ -17,15 +17,12 @@ show_warning() {
 
 
 #### Check Requirements ####
-if [[ -f /usr/share/git/completion/git-prompt.sh ]]; then
-    show_progress "Loading /usr/share/git/completion/git-prompt.sh" . /usr/share/git/completion/git-prompt.sh
-else
-    show_warning "/usr/share/git/completion/git-prompt.sh file not found, check your GIT installation files."
-fi
-
-# Check if command was succesfully created
 if ! command -v __git_ps1 &> /dev/null; then
-    show_warning "Command __git_ps1 not found."
+    if [[ -f /usr/share/git/completion/git-prompt.sh ]]; then
+        show_progress "Loading /usr/share/git/completion/git-prompt.sh" . /usr/share/git/completion/git-prompt.sh
+    else
+        show_warning "/usr/share/git/completion/git-prompt.sh file not found, check your GIT installation files."
+    fi
 fi
 
 
@@ -50,7 +47,7 @@ HISTFILESIZE=2000
 # update the values of LINES and COLUMNS.
 shopt -s checkwinsize
 
-# Set custom prompt
+## Set custom prompt
 # Current directory
 curr_dir='\e[1;34m[ In\e[m\e[0;34m \w\e[m\e[1;34m ]\e[m'
 
@@ -70,17 +67,6 @@ lhs_prompt="$curr_dir $git_branch\n$prompt_symbol "
 rhs_prompt="$status_symbol $prompt_time"
 prompt_fill='\e[$((COLUMNS - 11))G'
 PS1="\[\e[s$prompt_fill$rhs_prompt\e[u\]$lhs_prompt"
-
-# Colors for ls command (set LS_COLORS variable)
-if command -v dircolors &> /dev/null; then
-    # Create file if it doesn't exist
-    if ! [[ -f $HOME/.dircolors ]]; then
-        show_progress "Creating $HOME/.dircolors" dircolors -p > $HOME/.dircolors
-    fi
-
-    # Load file
-    show_progress "Loading $HOME/.dircolors" eval $(dircolors $HOME/.dircolors)
-fi
 
 
 #### QOL Options ####
@@ -111,10 +97,9 @@ alias py="python3"
 alias bashrc="source $HOME/.bashrc"
 
 
-
 #### Run Custom System Configuration ####
 if [[ -f ~/.custom_bash ]]; then
-    . ~/.custom_bash
+    show_progress "Loading ~/.custom_bash" . ~/.custom_bash
 fi
 
 echo -e "\e[1;32mEverything set up :)\e[m"
