@@ -49,24 +49,24 @@ shopt -s checkwinsize
 
 ## Set custom prompt
 # Current directory
-curr_dir='\e[1;34m[ In\e[m\e[0;34m \w\e[m\e[1;34m ]\e[m'
+curr_dir='\[\e[1;34m\][ In \[\e[0;34m\]\w \[\e[1;34m\]]'
 
 # Git branch
-git_branch='\e[1;32m$(__git_ps1 "(%s)" 2> /dev/null)\e[m'
+git_branch='\[\e[1;32m\]$(__git_ps1 "(%s)" 2> /dev/null)'
 
 # Status
-status_symbol='$([[ "$?" == 1 ]] && echo "\e[1;31m*\e[m" || echo " ")'
+status_symbol='$([[ "$?" == 1 ]] && echo "\[\e[1;31m\]*" || echo " ")'
 
 # Prompt symbol
-prompt_symbol='\e[1;35m>>=\e[m $'
+prompt_symbol='\[\e[1;35m\]>>=\[\e[m\] $ '
 
 # Time
-prompt_time='\e[0;34m[\t]\e[m'
+prompt_time='\[\e[0;34m\][\t]'
 
-lhs_prompt="$curr_dir $git_branch\n$prompt_symbol "
-rhs_prompt="$status_symbol $prompt_time"
+# Padding to right align status and time
 prompt_fill='\e[$((COLUMNS - 11))G'
-PS1="\[\e[s$prompt_fill$rhs_prompt\e[u\]$lhs_prompt"
+
+PS1="$curr_dir $git_branch$prompt_fill$status_symbol $prompt_time\n$prompt_symbol"
 
 
 #### QOL Options ####
