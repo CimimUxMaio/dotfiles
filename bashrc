@@ -95,3 +95,5 @@ if [[ -f ~/.custom_bash ]]; then
 fi
 
 echo -e "\e[1;32mEverything set up :)\e[m"
+read -n 1 -s -t 3
+clear
