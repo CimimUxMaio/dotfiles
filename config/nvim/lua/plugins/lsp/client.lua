@@ -35,7 +35,7 @@ local function lsp_attach(client, bufnr)
 
 	lsp_keymaps(bufnr)
 
-	if client.server_capabilities.document_highlight then
+	if client.supports_method("textDocument/documentHighlight") then
 		lsp_highlight_document(bufnr)
 	end
 end
