@@ -75,14 +75,6 @@ PS1="$curr_dir $git_branch$prompt_fill$status_symbol $prompt_time\n$prompt_symbo
 shopt -s globstar
 
 
-#### TMUX ####
-## Start a new (or attach to) default tmux session
-mkdir -p "$HOME/.tmux/logs/"
-if [ -z "$TMUX" ]; then
-    (cd "$HOME/.tmux/logs/" && tmux new -A -s default)
-fi
-
-
 #### ALIASES ####
 # If eza is available, replace ls with it
 if command -v eza &> /dev/null; then
