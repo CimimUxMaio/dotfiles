@@ -34,7 +34,10 @@ local function lsp_attach(client, bufnr)
 	client.server_capabilities.document_formatting = false
 
 	lsp_keymaps(bufnr)
-	lsp_highlight_document(bufnr)
+
+	if client.server_capabilities.document_highlight then
+		lsp_highlight_document(bufnr)
+	end
 end
 
 require("mason-lspconfig").setup_handlers({
