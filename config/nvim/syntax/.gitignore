@@ -1,0 +1,5 @@
+# Ignore everything in this directory since it will be custom syntax files
+*
+
+# Except this file
+!.gitignore
