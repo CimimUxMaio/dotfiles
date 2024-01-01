@@ -94,6 +94,4 @@ if [[ -f ~/.custom_bash ]]; then
     show_progress "Loading ~/.custom_bash" . ~/.custom_bash
 fi
 
-echo -e "\e[1;32mEverything set up :)\e[m"
-read -n 1 -s -t 3
 clear
