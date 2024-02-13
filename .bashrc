@@ -71,6 +71,8 @@ shopt -s globstar
 
 
 #### ALIASES ####
+alias ls="ls --color=auto"
+
 # If eza is available, replace ls with it
 if command -v eza &> /dev/null; then
     alias ls="eza"
