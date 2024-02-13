@@ -1,4 +1,7 @@
-My dot files
+# My dot files
+
+### Installation with GNU Stow
+`stow .`
 
 ---
 
