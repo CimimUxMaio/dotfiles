@@ -16,16 +16,6 @@ show_warning() {
 [[ $- != *i* ]] && return
 
 
-#### Check Requirements ####
-if ! command -v __git_ps1 &> /dev/null; then
-    if [[ -f /usr/share/git/completion/git-prompt.sh ]]; then
-        show_progress "Loading /usr/share/git/completion/git-prompt.sh" . /usr/share/git/completion/git-prompt.sh
-    else
-        show_warning "/usr/share/git/completion/git-prompt.sh file not found, check your GIT installation files."
-    fi
-fi
-
-
 #### History File ####
 # History file location
 mkdir -p "$HOME/.cache/bash/"
@@ -52,7 +42,11 @@ shopt -s checkwinsize
 curr_dir='\[\e[1;34m\][ In \[\e[0;34m\]\w \[\e[1;34m\]]'
 
 # Git branch
-git_branch='\[\e[1;32m\]$(__git_ps1 "(%s)" 2> /dev/null)'
+parse_git_branch() {
+    git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/'
+}
+
+git_branch='\[\e[1;32m\]($(parse_git_branch))'
 
 # Status
 status_symbol='$([[ "$?" == 1 ]] && echo "\[\e[1;31m\]*" || echo " ")'
