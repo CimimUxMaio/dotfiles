@@ -46,7 +46,8 @@ parse_git_branch() {
     git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/'
 }
 
-git_branch='\[\e[1;32m\]($(parse_git_branch))'
+# Show only if non-empty
+git_branch='\[\e[1;32m\]$([[ -z $(parse_git_branch) ]] || echo "($(parse_git_branch))")'
 
 # Status
 status_symbol='$([[ "$?" == 1 ]] && echo "\[\e[1;31m\]*" || echo " ")'
