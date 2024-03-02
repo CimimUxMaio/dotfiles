@@ -151,8 +151,8 @@ require("lazy").setup({
 	},
 
 	{
-		"mhartington/formatter.nvim",
-		config = require("plugins.formatter").setup,
+		"stevearc/conform.nvim",
+		config = require("plugins.conform").setup,
 	},
 
 	{

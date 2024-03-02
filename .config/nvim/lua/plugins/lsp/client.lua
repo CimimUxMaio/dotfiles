@@ -31,7 +31,7 @@ local function lsp_keymaps(bufnr)
 end
 
 local function lsp_attach(client, bufnr)
-	client.server_capabilities.document_formatting = false
+	-- client.server_capabilities.document_formatting = false
 
 	lsp_keymaps(bufnr)
 
