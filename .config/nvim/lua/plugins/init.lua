@@ -159,4 +159,6 @@ require("lazy").setup({
 		"zbirenbaum/copilot.lua",
 		config = require("plugins.copilot").setup,
 	},
+
+	"christoomey/vim-tmux-navigator",
 })
