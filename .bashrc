@@ -41,13 +41,13 @@ shopt -s checkwinsize
 # Current directory
 curr_dir='\[\e[1;34m\][ In \[\e[0;34m\]\w \[\e[1;34m\]]'
 
-# Git branch
-parse_git_branch() {
-    git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/'
-}
+# # Git branch
+# parse_git_branch() {
+#     git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/'
+# }
 
-# Show only if non-empty
-git_branch='\[\e[1;32m\]$([[ -z $(parse_git_branch) ]] || echo "($(parse_git_branch))")'
+# # Show only if non-empty
+# git_branch='\[\e[1;32m\]$([[ -z $(parse_git_branch) ]] || echo "($(parse_git_branch))")'
 
 # Status
 status_symbol='$([[ "$?" == 1 ]] && echo "\[\e[1;31m\]*" || echo " ")'
@@ -61,7 +61,7 @@ prompt_time='\[\e[0;34m\][\t]'
 # Padding to right align status and time
 prompt_fill='\e[$((COLUMNS - 11))G'
 
-PS1="$curr_dir $git_branch$prompt_fill$status_symbol $prompt_time\n$prompt_symbol"
+PS1="$curr_dir$prompt_fill$status_symbol $prompt_time\n$prompt_symbol"
 
 
 #### QOL Options ####
