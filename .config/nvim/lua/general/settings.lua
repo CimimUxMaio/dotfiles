@@ -1,15 +1,16 @@
 require("utils")
 
-
 local set = vim.opt
 local global = vim.g
-
 
 set.mouse = "a"
 set.encoding = "UTF-8"
 set.foldmethod = "indent"
 set.foldlevel = 99
-set.number = true
+
+set.number = true -- Setting both number and relativenumber makes it hybrid
+set.relativenumber = true
+
 set.cursorline = true
 set.shiftwidth = 4
 set.tabstop = 4
@@ -24,15 +25,12 @@ set.showmode = true
 set.showmatch = true
 set.history = 1000
 set.wildmenu = true
-set.wildmode = {"list", "longest"}
-set.wildignore = {"*.docx", "*.jpg","*.png","*.gif", "*.pdf", "*.pyc", "*.exe", "*.flv", "*.img", "*.xlsx"}
+set.wildmode = { "list", "longest" }
+set.wildignore = { "*.docx", "*.jpg", "*.png", "*.gif", "*.pdf", "*.pyc", "*.exe", "*.flv", "*.img", "*.xlsx" }
 set.clipboard = "unnamedplus"
 set.termguicolors = true
 
-
-set.updatetime = 500  -- Refresh rate
+set.updatetime = 500 -- Refresh rate
 set.syntax = "on"
-
-
 
 global.mapleader = "¡"
