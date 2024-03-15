@@ -1,18 +1,20 @@
-local _M = {}
+return {
+	"romgrk/barbar.nvim",
 
-function _M.setup()
-  -- See `github.com/romgrk/barbar.nvim` for mor useful commands.
+	name = "barbar",
 
-  local opts = { noremap = true, silent = true }
+	dependencies = { "nvim-tree/nvim-web-devicons" },
 
-  vim.api.nvim_set_keymap("n", "H", ":BufferPrevious<CR>", opts)
-  vim.api.nvim_set_keymap("n", "L", ":BufferNext<CR>", opts)
-  vim.api.nvim_set_keymap("n", "Q", ":BufferClose<CR>", opts)
+	config = function()
+		local opts = { noremap = true, silent = true }
 
-  require("bufferline").setup {
-    animation = false,
-    insert_at_end = true
-  }
-end
+		vim.api.nvim_set_keymap("n", "H", ":BufferPrevious<CR>", opts)
+		vim.api.nvim_set_keymap("n", "L", ":BufferNext<CR>", opts)
+		vim.api.nvim_set_keymap("n", "Q", ":BufferClose<CR>", opts)
 
-return _M
+		require("bufferline").setup({
+			animation = false,
+			insert_at_end = true,
+		})
+	end,
+}

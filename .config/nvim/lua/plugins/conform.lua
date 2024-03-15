@@ -1,5 +1,9 @@
 return {
-	setup = function()
+	"stevearc/conform.nvim",
+
+	name = "conform",
+
+	config = function()
 		-- Format on save active by default
 		vim.g.format_on_save = true
 

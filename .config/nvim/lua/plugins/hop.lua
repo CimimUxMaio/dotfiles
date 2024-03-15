@@ -1,10 +1,12 @@
-local _M = {}
+return {
+	"phaazon/hop.nvim",
 
-function _M.setup()
-  require("hop").setup()
+	name = "hop",
 
-  local opts = { noremap = true, silent = true }
-  vim.api.nvim_set_keymap("n", "s", ":HopChar1<CR>", opts)
-end
+	config = function()
+		require("hop").setup()
 
-return _M
+		local opts = { noremap = true, silent = true }
+		vim.api.nvim_set_keymap("n", "s", ":HopChar1<CR>", opts)
+	end,
+}

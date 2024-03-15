@@ -1,13 +1,17 @@
-local _M = {}
+return {
+	"petertriho/nvim-scrollbar",
 
-function _M.setup()
-  require("scrollbar").setup({
-    handle = {
-      color = "#BBBBBB"
-    }
-  })
+	name = "scrollbar",
 
-  require("scrollbar.handlers.search").setup()
-end
+	dependencies = { "hlslens" },
 
-return _M
+	config = function()
+		require("scrollbar").setup({
+			handle = {
+				color = "#BBBBBB",
+			},
+		})
+
+		require("scrollbar.handlers.search").setup()
+	end,
+}
