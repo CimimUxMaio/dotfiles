@@ -24,7 +24,7 @@ return {
 
 		local opts = { noremap = true, silent = true }
 		vim.api.nvim_set_keymap("n", "ff", "<cmd>Telescope find_files<CR>", opts)
-		vim.api.nvim_set_keymap("n", "f?", "<cmd>Telescope help_tags<CR>", opts)
+		vim.api.nvim_set_keymap("n", "fh", "<cmd>Telescope help_tags<CR>", opts)
 		vim.api.nvim_set_keymap("n", "fp", "<cmd>Telescope commands<CR>", opts)
 		vim.api.nvim_set_keymap("n", "fd", "<cmd>Telescope diagnostics<CR>", opts)
 		vim.api.nvim_set_keymap("n", "fs", "<cmd>Telescope live_grep<CR>", opts)
