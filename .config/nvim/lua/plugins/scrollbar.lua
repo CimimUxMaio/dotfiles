@@ -1,17 +1,17 @@
 return {
-	"petertriho/nvim-scrollbar",
+  "petertriho/nvim-scrollbar",
 
-	name = "scrollbar",
+  name = "scrollbar",
 
-	dependencies = { "hlslens" },
+  dependencies = { "hlslens" },
 
-	config = function()
-		require("scrollbar").setup({
-			handle = {
-				color = "#BBBBBB",
-			},
-		})
+  config = function()
+    require("scrollbar").setup {
+      handle = {
+        color = "#BBBBBB",
+      },
+    }
 
-		require("scrollbar.handlers.search").setup()
-	end,
+    require("scrollbar.handlers.search").setup()
+  end,
 }
