@@ -7,8 +7,6 @@ return {
 		end,
 	},
 
-	{ "lukas-reineke/indent-blankline.nvim", main = "ibl", opts = {} },
-
 	{ "stevearc/dressing.nvim", name = "dressing", lazy = true },
 
 	"https://tpope.io/vim/fugitive.git",
