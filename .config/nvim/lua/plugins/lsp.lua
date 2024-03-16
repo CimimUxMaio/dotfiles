@@ -27,6 +27,8 @@ local function diagnostics_setup()
 end
 
 local function set_highlight_on_hover(bufnr)
+  -- LspReferenceText, LspReferenceRead, LspReferenceWrite highlight groups
+  -- are used and should be defined.
   vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
     buffer = bufnr,
     callback = vim.lsp.buf.document_highlight,
