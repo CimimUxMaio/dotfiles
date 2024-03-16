@@ -1,18 +1,11 @@
 local function diagnostics_setup()
-  local sign_icons = {
-    Hint = "",
-    Info = "",
-    Warn = "",
-    Error = "",
-    Debug = "",
-    Trace = "✎",
-  }
-
   local signs = {
-    { name = "DiagnosticSignError", text = sign_icons.Error },
-    { name = "DiagnosticSignWarn", text = sign_icons.Warn },
-    { name = "DiagnosticSignHint", text = sign_icons.Hint },
-    { name = "DiagnosticSignInfo", text = sign_icons.Info },
+    { name = "DiagnosticSignHint", text = "" },
+    { name = "DiagnosticSignInfo", text = "" },
+    { name = "DiagnosticSignWarn", text = "" },
+    { name = "DiagnosticSignError", text = "" },
+    { name = "DiagnosticSignDebug", text = "" },
+    { name = "DiagnosticSignTrace", text = "✎" },
   }
 
   for _, sign in ipairs(signs) do
@@ -20,16 +13,9 @@ local function diagnostics_setup()
   end
 
   local config = {
-    virtual_text = true,
-    signs = {
-      active = signs,
-    },
-    update_in_insert = true,
-    underline = true,
     severity_sort = true,
     float = {
       focusable = false,
-      style = "minimal",
       border = "rounded",
       source = "always",
       header = "",
@@ -38,14 +24,6 @@ local function diagnostics_setup()
   }
 
   vim.diagnostic.config(config)
-
-  vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
-    border = "rounded",
-  })
-
-  vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, {
-    border = "rounded",
-  })
 end
 
 local function set_highlight_on_hover(bufnr)
@@ -60,27 +38,27 @@ local function set_highlight_on_hover(bufnr)
   })
 end
 
-local function set_lsp_keymaps(client, bufnr)
+local function set_buf_lsp_keymaps(client, bufnr)
   local opts = { noremap = true, silent = true }
 
-  vim.api.nvim_buf_set_keymap(bufnr, "n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", opts)
-  vim.api.nvim_buf_set_keymap(bufnr, "n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>", opts)
-  vim.api.nvim_buf_set_keymap(bufnr, "n", "ge", "<cmd>lua vim.diagnostic.setloclist()<CR>", opts)
+  vim.api.nvim_buf_set_keymap(bufnr, "n", "gd", ":lua vim.lsp.buf.definition()<CR>", opts)
+  vim.api.nvim_buf_set_keymap(bufnr, "n", "gr", ":lua vim.lsp.buf.references()<CR>", opts)
+  vim.api.nvim_buf_set_keymap(bufnr, "n", "ge", ":lua vim.diagnostic.setloclist()<CR>", opts)
 
-  vim.api.nvim_buf_set_keymap(bufnr, "n", ",", "<cmd>lua vim.diagnostic.open_float()<CR>", opts)
-  vim.api.nvim_buf_set_keymap(bufnr, "n", ".", "<cmd>lua vim.lsp.buf.hover()<CR>", opts)
+  vim.api.nvim_buf_set_keymap(bufnr, "n", ",", ":lua vim.diagnostic.open_float()<CR>", opts)
+  vim.api.nvim_buf_set_keymap(bufnr, "n", ".", ":lua vim.lsp.buf.hover()<CR>", opts)
 
-  vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>ca", "<cmd>lua vim.lsp.buf.code_action()<CR>", opts)
+  vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>ca", ":lua vim.lsp.buf.code_action()<CR>", opts)
   if client.server_capabilities.renameProvider then
-    vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>r", "<cmd>lua vim.lsp.buf.rename()<CR>", opts)
+    vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>r", ":lua vim.lsp.buf.rename()<CR>", opts)
   end
 
-  vim.api.nvim_buf_set_keymap(bufnr, "n", "dk", '<cmd>lua vim.diagnostic.goto_prev({ border = "rounded" })<CR>', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, "n", "dj", '<cmd>lua vim.diagnostic.goto_next({ border = "rounded" })<CR>', opts)
+  vim.api.nvim_buf_set_keymap(bufnr, "n", "dk", ":lua vim.diagnostic.goto_prev()<CR>", opts)
+  vim.api.nvim_buf_set_keymap(bufnr, "n", "dj", ":lua vim.diagnostic.goto_next()<CR>", opts)
 end
 
 local function on_lsp_attach(client, bufnr)
-  set_lsp_keymaps(client, bufnr)
+  set_buf_lsp_keymaps(client, bufnr)
 
   if client.supports_method("textDocument/documentHighlight") then
     set_highlight_on_hover(bufnr)
@@ -96,6 +74,15 @@ local function lsp_config_setup()
       }
     end,
   }
+
+  -- Customise handlers
+  vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
+    border = "rounded",
+  })
+
+  vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, {
+    border = "rounded",
+  })
 end
 
 return {
