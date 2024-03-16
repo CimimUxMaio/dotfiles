@@ -22,15 +22,12 @@ return {
 			},
 		})
 
-		vim.api.nvim_set_keymap(
-			"n",
-			"<leader><leader>",
-			"<cmd>Telescope find_files<CR>",
-			{ noremap = true, silent = true }
-		)
-		vim.api.nvim_set_keymap("n", "<leader>?", "<cmd>Telescope help_tags<CR>", { noremap = true, silent = true })
-		vim.api.nvim_set_keymap("n", "<leader>P", "<cmd>Telescope commands<CR>", { noremap = true, silent = true })
-		vim.api.nvim_set_keymap("n", "<leader>D", "<cmd>Telescope diagnostics<CR>", { noremap = true, silent = true })
-		vim.api.nvim_set_keymap("n", "<leader>S", "<cmd>Telescope live_grep<CR>", { noremap = true, silent = true })
+		local opts = { noremap = true, silent = true }
+		vim.api.nvim_set_keymap("n", "ff", "<cmd>Telescope find_files<CR>", opts)
+		vim.api.nvim_set_keymap("n", "f?", "<cmd>Telescope help_tags<CR>", opts)
+		vim.api.nvim_set_keymap("n", "fp", "<cmd>Telescope commands<CR>", opts)
+		vim.api.nvim_set_keymap("n", "fd", "<cmd>Telescope diagnostics<CR>", opts)
+		vim.api.nvim_set_keymap("n", "fs", "<cmd>Telescope live_grep<CR>", opts)
+		vim.api.nvim_set_keymap("n", "fb", "<cmd>Telescope buffers<CR>", opts)
 	end,
 }
