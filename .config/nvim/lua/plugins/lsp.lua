@@ -101,7 +101,13 @@ return {
 
   config = function()
     diagnostics_setup()
-    require("mason").setup()
+
+    require("mason").setup {
+      ui = {
+        border = "rounded",
+      },
+    }
+
     require("mason-lspconfig").setup()
     lsp_config_setup()
   end,
