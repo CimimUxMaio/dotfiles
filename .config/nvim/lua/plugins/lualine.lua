@@ -168,12 +168,7 @@ return {
 				for _, client in ipairs(clients) do
 					local filetypes = client.config.filetypes
 					if filetypes and vim.fn.index(filetypes, buf_ft) ~= -1 then
-						-- Depreoritize null-ls.
-						if client.name == "null-ls" then
-							msg = "null-ls"
-						else
-							return client.name
-						end
+						return client.name
 					end
 				end
 				return msg
