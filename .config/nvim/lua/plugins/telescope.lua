@@ -8,8 +8,10 @@ return {
   config = function()
     local actions = require("telescope.actions")
 
+    -- General configuration
     require("telescope").setup {
       defaults = {
+        -- Keymaps for all pickers
         mappings = {
           i = {
             ["<C-j>"] = actions.move_selection_next,
