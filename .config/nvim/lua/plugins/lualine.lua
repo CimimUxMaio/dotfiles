@@ -177,6 +177,23 @@ return {
 			color = { fg = "#ffffff", gui = "bold" },
 		})
 
+		-- Show open buffer ammount.
+		ins_right({
+			function()
+				local listed_buf_count = 0
+				for _, buffer in ipairs(vim.api.nvim_list_bufs()) do
+					if vim.bo[buffer].buflisted then
+						listed_buf_count = listed_buf_count + 1
+					end
+				end
+				print(listed_buf_count)
+				return tostring(listed_buf_count)
+			end,
+
+			icon = "",
+			color = { fg = colors.yellow, gui = "bold" },
+		})
+
 		-- Add components to right sections
 		ins_right({
 			"o:encoding", -- option component same as &encoding in viml
