@@ -1,5 +1,3 @@
-require("utils")
-
 local set = vim.opt
 local global = vim.g
 

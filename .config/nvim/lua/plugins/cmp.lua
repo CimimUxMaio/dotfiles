@@ -11,7 +11,6 @@ return {
 	},
 
 	config = function()
-		local utils = require("utils")
 		local cmp = require("cmp")
 		local luasnip = require("luasnip")
 
@@ -48,6 +47,35 @@ return {
 			end
 		end
 
+		local kind_icons = {
+			Text = "󰉿",
+			Method = "󰆧",
+			Function = "󰊕",
+			Constructor = "",
+			Field = " ",
+			Variable = "󰀫",
+			Class = "󰠱",
+			Interface = "",
+			Module = "",
+			Property = "󰜢",
+			Unit = "󰑭",
+			Value = "󰎠",
+			Enum = "",
+			Keyword = "󰌋",
+			Snippet = "",
+			Color = "󰏘",
+			File = "󰈙",
+			Reference = "",
+			Folder = "󰉋",
+			EnumMember = "",
+			Constant = "󰏿",
+			Struct = "",
+			Event = "",
+			Operator = "󰆕",
+			TypeParameter = " ",
+			Misc = " ",
+		}
+
 		cmp.setup({
 			snippet = {
 				expand = function(args)
@@ -60,7 +88,7 @@ return {
 			formatting = {
 				fields = { "kind", "abbr", "menu" },
 				format = function(entry, vim_item)
-					vim_item.kind = string.format("%s", utils.icons.kinds[vim_item.kind])
+					vim_item.kind = string.format("%s", kind_icons[vim_item.kind])
 					vim_item.menu = "[" .. entry.source.name .. "]"
 					return vim_item
 				end,

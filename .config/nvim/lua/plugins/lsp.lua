@@ -1,7 +1,12 @@
 local function diagnostics_setup()
-	local utils = require("utils")
-
-	local sign_icons = utils.icons.signs
+	local sign_icons = {
+		Hint = "",
+		Info = "",
+		Warn = "",
+		Error = "",
+		Debug = "",
+		Trace = "✎",
+	}
 
 	local signs = {
 		{ name = "DiagnosticSignError", text = sign_icons.Error },
