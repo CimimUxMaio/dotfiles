@@ -186,7 +186,6 @@ return {
 						listed_buf_count = listed_buf_count + 1
 					end
 				end
-				print(listed_buf_count)
 				return tostring(listed_buf_count)
 			end,
 
