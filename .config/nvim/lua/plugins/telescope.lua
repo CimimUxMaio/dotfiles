@@ -22,6 +22,24 @@ return {
           },
         },
       },
+
+      pickers = {
+        help_tags = {
+          mappings = {
+            i = {
+              ["<CR>"] = "file_vsplit",
+            },
+          },
+        },
+
+        buffers = {
+          mappings = {
+            i = {
+              ["<C-d>"] = actions.delete_buffer,
+            },
+          },
+        },
+      },
     }
 
     local opts = { noremap = true, silent = true }
