@@ -31,4 +31,4 @@ set.termguicolors = true
 set.updatetime = 500 -- Refresh rate
 set.syntax = "on"
 
-global.mapleader = "¡"
+global.mapleader = " "

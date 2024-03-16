@@ -111,10 +111,6 @@ return {
       window = {
         documentation = cmp.config.window.bordered(),
       },
-
-      experimental = {
-        ghost_text = false,
-      },
     }
   end,
 }

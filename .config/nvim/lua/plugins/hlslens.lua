@@ -25,6 +25,6 @@ return {
     vim.api.nvim_set_keymap("n", "g*", [[g*<Cmd>lua require('hlslens').start()<CR>]], kopts)
     vim.api.nvim_set_keymap("n", "g#", [[g#<Cmd>lua require('hlslens').start()<CR>]], kopts)
 
-    vim.api.nvim_set_keymap("n", "<leader>l", ":noh<CR>", kopts)
+    vim.api.nvim_set_keymap("n", "<leader>z", ":noh<CR>", kopts)
   end,
 }
