@@ -22,3 +22,8 @@ vim.api.nvim_set_keymap("n", "<C-v><C-s>", ":vsplit<CR>", opts)
 -- Better tabing
 vim.api.nvim_set_keymap("v", "<", "<gv", opts)
 vim.api.nvim_set_keymap("v", ">", ">gv", opts)
+
+-- Buffer navigation
+vim.api.nvim_set_keymap("n", "H", ":bprevious<CR>", opts)
+vim.api.nvim_set_keymap("n", "L", ":bnext<CR>", opts)
+vim.api.nvim_set_keymap("n", "Q", ":bdelete<CR>", opts)
