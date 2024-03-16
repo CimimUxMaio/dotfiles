@@ -24,14 +24,6 @@ return {
       },
 
       pickers = {
-        help_tags = {
-          mappings = {
-            i = {
-              ["<CR>"] = "file_vsplit",
-            },
-          },
-        },
-
         buffers = {
           mappings = {
             i = {
