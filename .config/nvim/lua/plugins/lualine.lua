@@ -32,6 +32,9 @@ return {
         local gitdir = vim.fn.finddir(".git", filepath .. ";")
         return gitdir and #gitdir > 0 and #gitdir < #filepath
       end,
+      harpoon_available = function()
+        return vim.g.harpoon_loaded == true
+      end,
     }
 
     -- Config
@@ -175,6 +178,17 @@ return {
       end,
       icon = " LSP:",
       color = { fg = "#ffffff", gui = "bold" },
+    }
+
+    -- Show marked harpoon files.
+    ins_right {
+      function()
+        return tostring(require("harpoon"):list():length())
+      end,
+
+      icon = "",
+      cond = conditions.harpoon_available,
+      color = { fg = colors.yellow, gui = "bold" },
     }
 
     -- Show open buffer ammount.
