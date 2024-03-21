@@ -52,7 +52,7 @@ local function set_buf_lsp_keymaps(client, bufnr)
 
   vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>ca", ":lua vim.lsp.buf.code_action()<CR>", opts)
   if client.server_capabilities.renameProvider then
-    vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>r", ":lua vim.lsp.buf.rename()<CR>", opts)
+    vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>R", ":lua vim.lsp.buf.rename()<CR>", opts)
   end
 
   vim.api.nvim_buf_set_keymap(bufnr, "n", "dk", ":lua vim.diagnostic.goto_prev()<CR>", opts)
