@@ -15,10 +15,10 @@ return {
         lua = { "stylua" },
         python = { { "black", "autopep8" } },
 
-        javascript = { "eslint_d" },
-        javascriptreact = { "eslint_d" },
-        typescript = { "eslint_d" },
-        typescriptreact = { "eslint_d" },
+        javascript = { { "eslint_d", "eslint" } },
+        javascriptreact = { { "eslint_d", "eslint" } },
+        typescript = { { "eslint_d", "eslint" } },
+        typescriptreact = { { "eslint_d", "eslint" } },
 
         ["_"] = { "trim_whitespace" },
       },
