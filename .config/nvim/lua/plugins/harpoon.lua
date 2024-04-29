@@ -45,7 +45,7 @@ return {
       if harpoon_contains_current() then
         harpoon:list():remove()
       else
-        harpoon:list():append()
+        harpoon:list():add()
       end
     end, { desc = "Mark / Unmark file" })
 
