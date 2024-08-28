@@ -79,6 +79,7 @@ alias ..="cd .."
 alias vim="nvim"
 alias py="python3"
 alias bashrc="source $HOME/.bashrc"
+alias ff='cd $(fd --type d | fzf --tmux center,70%)'
 
 
 #### Run Custom System Configuration ####
