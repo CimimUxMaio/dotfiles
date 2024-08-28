@@ -65,6 +65,20 @@ local function on_lsp_attach(client, bufnr)
   if client.supports_method("textDocument/documentHighlight") then
     set_highlight_on_hover(bufnr)
   end
+
+  vim.lsp.handlers["textDocument/hover"] = nil
+  if client.supports_method("textDocument/hover") then
+    vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
+      border = "rounded",
+    })
+  end
+
+  vim.lsp.handlers["textDocument/signatureHelp"] = nil
+  if client.supports_method("textDocument/signatureHelp") then
+    vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, {
+      border = "rounded",
+    })
+  end
 end
 
 local function lsp_config_setup()
@@ -76,15 +90,6 @@ local function lsp_config_setup()
       }
     end,
   }
-
-  -- Customise handlers
-  vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
-    border = "rounded",
-  })
-
-  vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, {
-    border = "rounded",
-  })
 end
 
 return {
