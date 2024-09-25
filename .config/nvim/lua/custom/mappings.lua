@@ -18,6 +18,7 @@ vim.api.nvim_set_keymap("n", "<M-l>", ":vertical resize +2<CR>", opts)
 -- Window Splits
 vim.api.nvim_set_keymap("n", "<C-s>", ":split<CR>", opts)
 vim.api.nvim_set_keymap("n", "<C-v><C-s>", ":vsplit<CR>", opts)
+vim.api.nvim_set_keymap("n", "<C-z>", ":only<CR>", opts)
 
 -- Better tabing
 vim.api.nvim_set_keymap("v", "<", "<gv", opts)
@@ -27,7 +28,7 @@ vim.api.nvim_set_keymap("v", ">", ">gv", opts)
 vim.api.nvim_set_keymap("n", "H", ":bprevious<CR>", opts)
 vim.api.nvim_set_keymap("n", "L", ":bnext<CR>", opts)
 vim.api.nvim_set_keymap("n", "Q", ":bdelete<CR>", opts)
-vim.keymap.set("n", "<leader>Q", function()  -- Close all buffers except the current one
+vim.keymap.set("n", "<leader>Q", function() -- Close all buffers except the current one
   local buffers = vim.api.nvim_list_bufs()
   local current_buf = vim.api.nvim_get_current_buf()
   for _, buf in ipairs(buffers) do
