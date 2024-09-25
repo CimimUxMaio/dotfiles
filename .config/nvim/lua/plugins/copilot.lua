@@ -3,16 +3,18 @@ return {
 
   name = "copilot",
 
+  event = "InsertEnter",
+
   config = function()
     require("copilot").setup {
       panel = {
         enabled = true,
-        auto_refresh = false,
+        auto_refresh = true,
         keymap = {
           jump_prev = "<M-k>",
           jump_next = "<M-j>",
           accept = "<CR>",
-          refresh = "gr",
+          refresh = "<M-r>",
           open = "<M-p>",
         },
         layout = {
@@ -34,8 +36,6 @@ return {
         },
       },
       filetypes = {
-        yaml = false,
-        markdown = false,
         help = false,
         gitcommit = false,
         gitrebase = false,
