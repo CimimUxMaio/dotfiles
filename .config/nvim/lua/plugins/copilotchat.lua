@@ -6,18 +6,18 @@ return {
   branch = "canary",
 
   dependencies = {
-    { "zbirenbaum/copilot.lua" },
+    "copilot",
+    "cmp",
+    "telescope",
+    "dressing",
     { "nvim-lua/plenary.nvim" },
-    { "hrsh7th/nvim-cmp" },
-    { "nvim-telescope/telescope.nvim" },
   },
 
   build = "make tiktoken",
 
   opts = {
-    show_help = false,
+    show_help = true,
     highlight_selection = false,
-    clear_chat_on_new_prompt = true,
 
     selection = function(source)
       local select = require("CopilotChat.select")
@@ -67,13 +67,27 @@ return {
     -- Setup cmp integration
     require("CopilotChat.integrations.cmp").setup()
 
-    require("CopilotChat").setup(opts)
+    local chat = require("CopilotChat")
+    chat.setup(opts)
 
     -- Keybinds
     -- Telescope integration
     vim.keymap.set("n", "<M-p>", function()
       local actions = require("CopilotChat.actions")
       require("CopilotChat.integrations.telescope").pick(actions.prompt_actions())
+    end, { noremap = true, silent = true })
+
+    -- Quick question
+    vim.keymap.set("n", "<M-'>", function()
+      local callback = function(input)
+        if input ~= nil and input ~= "" then
+          chat.ask(input, { system_prompt = nil, selection = nil }) -- Ask with no instructions, no context
+        end
+      end
+
+      vim.ui.input({
+        prompt = "How can I help you? ",
+      }, callback)
     end, { noremap = true, silent = true })
 
     -- Open chat
