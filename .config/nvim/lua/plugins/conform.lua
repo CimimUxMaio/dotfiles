@@ -13,12 +13,19 @@ return {
         -- Use a sub-list to run only the first available formatter
 
         lua = { "stylua" },
-        python = { { "black", "autopep8" } },
+        python = { "black", "autopep8", stop_after_first = true },
 
-        javascript = { { "eslint_d", "eslint" } },
-        javascriptreact = { { "eslint_d", "eslint" } },
-        typescript = { { "eslint_d", "eslint" } },
-        typescriptreact = { { "eslint_d", "eslint" } },
+        javascript = { "eslint_d", "eslint", stop_after_first = true },
+        javascriptreact = { "eslint_d", "eslint", stop_after_first = true },
+
+        typescript = { "eslint_d", "eslint", stop_after_first = true },
+        typescriptreact = { "eslint_d", "eslint", stop_after_first = true },
+
+        go = { "goimports" },
+
+        html = { "prettier" },
+
+        css = { "prettier" },
 
         ["_"] = { "trim_whitespace" },
       },

@@ -3,8 +3,6 @@ return {
 
   name = "copilot-chat",
 
-  branch = "canary",
-
   dependencies = {
     "copilot",
     "cmp",
@@ -18,6 +16,7 @@ return {
   opts = {
     show_help = true,
     highlight_selection = false,
+    chat_autocomplete = true,
 
     selection = function(source)
       local select = require("CopilotChat.select")
@@ -64,9 +63,6 @@ return {
   },
 
   config = function(_, opts)
-    -- Setup cmp integration
-    require("CopilotChat.integrations.cmp").setup()
-
     local chat = require("CopilotChat")
     chat.setup(opts)
 

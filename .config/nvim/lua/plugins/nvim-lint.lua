@@ -13,6 +13,8 @@ return {
       python = { "flake8" },
 
       lua = { "selene" },
+
+      go = { "golangcilint" },
     }
 
     vim.api.nvim_create_autocmd({ "BufWritePost" }, {
