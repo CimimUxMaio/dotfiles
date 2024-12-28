@@ -13,7 +13,7 @@ return {
     local configs = require("nvim-treesitter.configs")
 
     configs.setup {
-      ensure_installed = { "lua", "vim", "vimdoc", "diff", "python" },
+      ensure_installed = { "lua", "vim", "vimdoc", "diff" },
       sync_install = false,
       ignore_install = { "" },
       highlight = {

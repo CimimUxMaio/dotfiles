@@ -5,4 +5,5 @@ vim.cmd([[
     autocmd FileType javascriptreact setlocal shiftwidth=2 tabstop=2
     autocmd FileType typescript setlocal shiftwidth=2 tabstop=2
     autocmd FileType json setlocal shiftwidth=2 tabstop=2
+    autocmd FileType templ setlocal shiftwidth=2 tabstop=2
 ]])

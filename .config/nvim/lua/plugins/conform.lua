@@ -23,10 +23,6 @@ return {
 
         go = { "goimports" },
 
-        html = { "prettier" },
-
-        css = { "prettier" },
-
         ["_"] = { "trim_whitespace" },
       },
 
