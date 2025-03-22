@@ -18,6 +18,7 @@ return {
 
     local cmp_sources = {
       { name = "nvim_lsp" },
+      { name = "render-markdown" },
       { name = "luasnip" },
       { name = "path" },
       { name = "buffer" },
