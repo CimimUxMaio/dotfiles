@@ -17,9 +17,9 @@ compinit
 alias ls="ls --color=auto"
 alias ll="ls -l"
 
-## If fd and fzf are available, create a custom alias
-if command -v fd &> /dev/null && command -v fzf &> /dev/null; then
-    alias ff='cd $(fd --type d | fzf --tmux center,70%)'
+## If fzf is available, create a custom alias
+if command -v fzf &> /dev/null; then
+    alias ff='cd $(find . -type d | fzf --tmux center,70%)'
 fi
 
 ## If eza is available, replace ls with it
