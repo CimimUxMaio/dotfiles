@@ -1,3 +1,30 @@
+function get_color_palette()
+  -- Define default colors
+  local colors = {
+    yellow = "#ECBE7B",
+    cyan = "#008080",
+    darkblue = "#081633",
+    green = "#98be65",
+    orange = "#FF8800",
+    violet = "#a9a1e1",
+    magenta = "#c678dd",
+    blue = "#51afef",
+    red = "#ec5f67",
+  }
+
+  -- If using catppuccin theme, merge its color palette.
+  local ok, palettes = pcall(require, "catppuccin.palettes")
+  local catppuccin_theme = string.match(vim.g.colors_name, "^catppuccin-(%w+)")
+  if ok and catppuccin_theme ~= nil then
+    local palette = palettes.get_palette("mocha")
+    for color, code in pairs(palette) do
+      colors[color] = code
+    end
+  end
+
+  return colors
+end
+
 return {
   "nvim-lualine/lualine.nvim",
 
@@ -6,32 +33,21 @@ return {
   config = function()
     local lualine = require("lualine")
 
-    local colors = {
-      bg = "#202328",
-      fg = "#bbc2cf",
-      yellow = "#ECBE7B",
-      cyan = "#008080",
-      darkblue = "#081633",
-      green = "#98be65",
-      orange = "#FF8800",
-      violet = "#a9a1e1",
-      magenta = "#c678dd",
-      blue = "#51afef",
-      red = "#ec5f67",
-    }
-
     local conditions = {
       buffer_not_empty = function()
         return vim.fn.empty(vim.fn.expand("%:t")) ~= 1
       end,
+
       hide_in_width = function()
         return vim.fn.winwidth(0) > 80
       end,
+
       check_git_workspace = function()
         local filepath = vim.fn.expand("%:p:h")
         local gitdir = vim.fn.finddir(".git", filepath .. ";")
         return gitdir and #gitdir > 0 and #gitdir < #filepath
       end,
+
       harpoon_available = function()
         return vim.g.harpoon_loaded == true
       end,
@@ -43,14 +59,9 @@ return {
         -- Disable sections and component separators
         component_separators = "",
         section_separators = "",
-        theme = {
-          -- We are going to use lualine_c an lualine_x as left and
-          -- right section. Both are highlighted by c theme .  So we
-          -- are just setting default looks o statusline
-          normal = { c = { fg = colors.fg, bg = colors.bg } },
-          inactive = { c = { fg = colors.fg, bg = colors.bg } },
-        },
+        theme = "auto",
       },
+
       sections = {
         -- these are to remove the defaults
         lualine_a = {},
@@ -61,6 +72,7 @@ return {
         lualine_c = {},
         lualine_x = {},
       },
+
       inactive_sections = {
         -- these are to remove the defaults
         lualine_a = {},
@@ -71,6 +83,9 @@ return {
         lualine_x = {},
       },
     }
+
+    -- Get color palette
+    local colors = get_color_palette()
 
     -- Inserts a component in lualine_c at left section
     local function ins_left(component)
@@ -95,6 +110,7 @@ return {
       function()
         return ""
       end,
+
       color = function()
         -- auto change color according to neovims mode
         local mode_color = {
@@ -138,7 +154,7 @@ return {
 
     ins_left { "location" }
 
-    ins_left { "progress", color = { fg = colors.fg, gui = "bold" } }
+    ins_left { "progress", color = { gui = "bold" } }
 
     ins_left {
       "diagnostics",
