@@ -62,9 +62,8 @@ return {
     },
   },
 
-  config = function(_, opts)
+  init = function()
     local chat = require("CopilotChat")
-    chat.setup(opts)
 
     -- Keybinds
     -- Telescope integration

@@ -3,49 +3,53 @@ return {
 
   name = "copilot",
 
+  cmd = "Copilot",
+
   event = "InsertEnter",
 
-  config = function()
-    require("copilot").setup {
-      panel = {
-        enabled = true,
-        auto_refresh = true,
-        keymap = {
-          jump_prev = "<M-k>",
-          jump_next = "<M-j>",
-          accept = "<CR>",
-          refresh = "<M-r>",
-          open = "<M-p>",
-        },
-        layout = {
-          position = "right", -- | top | left | right
-          ratio = 0.4,
-        },
+  opts = {
+    panel = {
+      enabled = true,
+      auto_refresh = true,
+      keymap = {
+        jump_prev = "<M-k>",
+        jump_next = "<M-j>",
+        accept = "<CR>",
+        refresh = "<M-r>",
+        open = "<M-p>",
       },
-      suggestion = {
-        enabled = true,
-        auto_trigger = true,
-        debounce = 75,
-        keymap = {
-          accept = "<M-a>",
-          accept_word = false,
-          accept_line = false,
-          next = "<M-j>",
-          prev = "<M-k>",
-          dismiss = "<M-d>",
-        },
+      layout = {
+        position = "right", -- | top | left | right
+        ratio = 0.4,
       },
-      filetypes = {
-        help = false,
-        gitcommit = false,
-        gitrebase = false,
-        hgcommit = false,
-        svn = false,
-        cvs = false,
-        ["."] = false,
+    },
+    suggestion = {
+      enabled = true,
+      auto_trigger = true,
+      debounce = 75,
+      keymap = {
+        accept = "<M-a>",
+        accept_word = false,
+        accept_line = false,
+        next = "<M-j>",
+        prev = "<M-k>",
+        dismiss = "<M-d>",
       },
-      copilot_node_command = "node", -- Node.js version must be > 16.x
-      server_opts_overrides = {},
-    }
-  end,
+    },
+    filetypes = {
+      help = false,
+      gitcommit = false,
+      gitrebase = false,
+      hgcommit = false,
+      svn = false,
+      cvs = false,
+      ["."] = false,
+    },
+    copilot_node_command = "node", -- Node.js version must be > 16.x
+    server_opts_overrides = {},
+  },
+
+  init = function()
+    vim.cmd [[Copilot disable]]
+  end
 }
