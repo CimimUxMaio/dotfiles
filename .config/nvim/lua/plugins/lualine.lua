@@ -5,11 +5,12 @@ function get_color_palette()
     cyan = "#008080",
     darkblue = "#081633",
     green = "#98be65",
-    orange = "#FF8800",
+    orange = "#fab387",
     violet = "#a9a1e1",
     magenta = "#c678dd",
     blue = "#51afef",
     red = "#ec5f67",
+    subtext0 = "#a6adc8",
   }
 
   -- If using catppuccin theme, merge its color palette.
@@ -193,7 +194,7 @@ return {
         return msg
       end,
       icon = " LSP:",
-      color = { fg = "#ffffff", gui = "bold" },
+      color = { fg = colors.subtext0, gui = "bold" },
     }
 
     -- Show marked harpoon files.
