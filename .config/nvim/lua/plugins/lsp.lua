@@ -48,9 +48,10 @@ local function set_buf_lsp_keymaps(client, bufnr)
   vim.api.nvim_buf_set_keymap(bufnr, "n", "ge", ":lua vim.diagnostic.setloclist()<CR>", opts)
 
   vim.api.nvim_buf_set_keymap(bufnr, "n", ",", ":lua vim.diagnostic.open_float()<CR>", opts)
-  vim.api.nvim_buf_set_keymap(bufnr, "n", ".", ":lua vim.lsp.buf.hover()<CR>", opts)
+  vim.api.nvim_buf_set_keymap(bufnr, "n", ".", ":lua vim.lsp.buf.hover({border = 'rounded'})<CR>", opts)
 
   vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>ca", ":lua vim.lsp.buf.code_action()<CR>", opts)
+
   if client.server_capabilities.renameProvider then
     vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>R", ":lua vim.lsp.buf.rename()<CR>", opts)
   end
@@ -64,20 +65,6 @@ local function on_lsp_attach(client, bufnr)
 
   if client.supports_method("textDocument/documentHighlight") then
     set_highlight_on_hover(bufnr)
-  end
-
-  vim.lsp.handlers["textDocument/hover"] = nil
-  if client.supports_method("textDocument/hover") then
-    vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
-      border = "rounded",
-    })
-  end
-
-  vim.lsp.handlers["textDocument/signatureHelp"] = nil
-  if client.supports_method("textDocument/signatureHelp") then
-    vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, {
-      border = "rounded",
-    })
   end
 end
 
