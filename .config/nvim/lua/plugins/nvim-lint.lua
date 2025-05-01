@@ -15,6 +15,8 @@ return {
       lua = { "selene" },
 
       go = { "golangcilint" },
+
+      rust = { "clippy" },
     }
 
     vim.api.nvim_create_autocmd({ "BufWritePost" }, {

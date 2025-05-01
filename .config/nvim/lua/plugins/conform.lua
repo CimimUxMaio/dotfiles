@@ -19,6 +19,8 @@ return {
 
       go = { "goimports" },
 
+      rust = { "rustfmt", lsp_format = "fallback" },
+
       ["_"] = { "trim_whitespace" },
     },
 
