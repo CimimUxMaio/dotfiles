@@ -68,17 +68,6 @@ local function on_lsp_attach(client, bufnr)
   end
 end
 
-local function lsp_config_setup()
-  require("mason-lspconfig").setup_handlers {
-    function(server_name)
-      require("lspconfig")[server_name].setup {
-        on_attach = on_lsp_attach,
-        capabilities = require("cmp_nvim_lsp").default_capabilities(),
-      }
-    end,
-  }
-end
-
 return {
   "williamboman/mason.nvim",
 
@@ -101,6 +90,10 @@ return {
     }
 
     require("mason-lspconfig").setup()
-    lsp_config_setup()
+
+    vim.lsp.config("*", {
+      capabilities = require("cmp_nvim_lsp").default_capabilities(),
+      on_attach = on_lsp_attach,
+    })
   end,
 }
