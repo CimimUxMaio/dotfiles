@@ -57,14 +57,6 @@ local function set_buf_lsp_keymaps(client, bufnr)
   vim.api.nvim_buf_set_keymap(bufnr, "n", "dj", ":lua vim.diagnostic.goto_next()<CR>", opts)
 end
 
-local function on_lsp_attach(client, bufnr)
-  set_buf_lsp_keymaps(client, bufnr)
-
-  if client.supports_method("textDocument/documentHighlight") then
-    set_highlight_on_hover(bufnr)
-  end
-end
-
 return {
   "williamboman/mason.nvim",
 
@@ -75,6 +67,10 @@ return {
     "williamboman/mason-lspconfig",
     "neovim/nvim-lspconfig",
     "dressing",
+  },
+
+  opts = {
+    automatic_enable = true,
   },
 
   config = function()
@@ -88,9 +84,17 @@ return {
 
     require("mason-lspconfig").setup()
 
-    vim.lsp.config("*", {
-      capabilities = require("cmp_nvim_lsp").default_capabilities(),
-      on_attach = on_lsp_attach,
-    })
+    for _, server in ipairs(require("mason-lspconfig").get_installed_servers()) do
+      vim.lsp.config(server, {
+        capabilities = require("cmp_nvim_lsp").default_capabilities(),
+        on_attach = function(client, bufnr)
+          set_buf_lsp_keymaps(client, bufnr)
+
+          if client.supports_method("textDocument/documentHighlight") then
+            set_highlight_on_hover(bufnr)
+          end
+        end,
+      })
+    end
   end,
 }
