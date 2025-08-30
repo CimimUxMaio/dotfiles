@@ -1,4 +1,4 @@
-function get_color_palette()
+local function get_color_palette()
   -- Define default colors
   local colors = {
     yellow = "#ECBE7B",
