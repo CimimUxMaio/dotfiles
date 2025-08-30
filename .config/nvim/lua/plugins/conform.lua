@@ -9,17 +9,19 @@ return {
       -- Use a sub-list to run only the first available formatter
 
       lua = { "stylua" },
-      python = { "black", "autopep8", stop_after_first = true },
+      python = { "black", "autopep8" },
 
-      javascript = { "eslint_d", "eslint", stop_after_first = true },
-      javascriptreact = { "eslint_d", "eslint", stop_after_first = true },
+      javascript = { "eslint_d" },
+      javascriptreact = { "eslint_d" },
 
-      typescript = { "eslint_d", "eslint", stop_after_first = true },
-      typescriptreact = { "eslint_d", "eslint", stop_after_first = true },
+      typescript = { "eslint_d" },
+      typescriptreact = { "eslint_d" },
 
       go = { "goimports" },
 
-      rust = { "rustfmt", lsp_format = "fallback" },
+      rust = { "rustfmt" },
+
+      elixir = { "mix" },
 
       ["_"] = { "trim_whitespace" },
     },
@@ -28,7 +30,7 @@ return {
       if not vim.g.format_on_save then
         return
       end
-      return { timeout_ms = 500, lsp_fallback = true }
+      return { timeout_ms = 2000, lsp_format = "fallback", stop_after_first = true }
     end,
   },
 
