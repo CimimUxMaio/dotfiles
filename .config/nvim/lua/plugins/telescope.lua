@@ -16,6 +16,12 @@ return {
           i = {
             ["<C-j>"] = actions.move_selection_next,
             ["<C-k>"] = actions.move_selection_previous,
+
+            ["<M-h>"] = actions.preview_scrolling_left,
+            ["<M-l>"] = actions.preview_scrolling_right,
+            ["<M-j>"] = actions.preview_scrolling_down,
+            ["<M-k>"] = actions.preview_scrolling_up,
+
             ["<C-c>"] = actions.close,
             ["<C-v><C-s>"] = actions.select_vertical,
             ["<C-s>"] = actions.select_horizontal,
