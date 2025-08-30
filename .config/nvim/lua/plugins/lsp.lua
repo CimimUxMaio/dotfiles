@@ -43,6 +43,7 @@ local function set_buf_lsp_keymaps(client, bufnr)
   vim.api.nvim_buf_set_keymap(bufnr, "n", "gd", ":lua vim.lsp.buf.definition()<CR>", opts)
   vim.api.nvim_buf_set_keymap(bufnr, "n", "gr", ":lua vim.lsp.buf.references()<CR>", opts)
   vim.api.nvim_buf_set_keymap(bufnr, "n", "ge", ":lua vim.diagnostic.setloclist()<CR>", opts)
+  vim.api.nvim_buf_set_keymap(bufnr, "n", "gt", "<C-o>", opts) -- Go to previous cursor jump
 
   vim.api.nvim_buf_set_keymap(bufnr, "n", ",", ":lua vim.diagnostic.open_float()<CR>", opts)
   vim.api.nvim_buf_set_keymap(bufnr, "n", ".", ":lua vim.lsp.buf.hover({border = 'rounded'})<CR>", opts)
@@ -58,43 +59,30 @@ local function set_buf_lsp_keymaps(client, bufnr)
 end
 
 return {
-  "williamboman/mason.nvim",
-
-  name = "mason",
+  "williamboman/mason-lspconfig",
 
   dependencies = {
-    "hrsh7th/nvim-cmp",
-    "williamboman/mason-lspconfig",
     "neovim/nvim-lspconfig",
-    "dressing",
+    { "williamboman/mason.nvim", opts = {} },
+    "hrsh7th/nvim-cmp",
   },
 
   opts = {
     automatic_enable = true,
   },
 
-  config = function()
+  init = function()
     diagnostics_setup()
 
-    require("mason").setup {
-      ui = {
-        border = "rounded",
-      },
-    }
+    vim.lsp.config("*", {
+      capabilities = require("cmp_nvim_lsp").default_capabilities(),
+      on_attach = function(client, bufnr)
+        set_buf_lsp_keymaps(client, bufnr)
 
-    require("mason-lspconfig").setup()
-
-    for _, server in ipairs(require("mason-lspconfig").get_installed_servers()) do
-      vim.lsp.config(server, {
-        capabilities = require("cmp_nvim_lsp").default_capabilities(),
-        on_attach = function(client, bufnr)
-          set_buf_lsp_keymaps(client, bufnr)
-
-          if client.supports_method("textDocument/documentHighlight") then
-            set_highlight_on_hover(bufnr)
-          end
-        end,
-      })
-    end
+        if client:supports_method("textDocument/documentHighlight") then
+          set_highlight_on_hover(bufnr)
+        end
+      end,
+    })
   end,
 }
