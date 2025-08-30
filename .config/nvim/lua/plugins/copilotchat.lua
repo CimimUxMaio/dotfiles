@@ -6,7 +6,6 @@ return {
   dependencies = {
     "copilot",
     "cmp",
-    "telescope",
     "dressing",
     { "nvim-lua/plenary.nvim" },
   },
@@ -63,29 +62,10 @@ return {
   },
 
   init = function()
-    local chat = require("CopilotChat")
-
-    -- Keybinds
-    -- Telescope integration
-    vim.keymap.set("n", "<M-p>", function()
-      local actions = require("CopilotChat.actions")
-      require("CopilotChat.integrations.telescope").pick(actions.prompt_actions())
-    end, { noremap = true, silent = true })
-
-    -- Quick question
-    vim.keymap.set("n", "<M-'>", function()
-      local callback = function(input)
-        if input ~= nil and input ~= "" then
-          chat.ask(input, { system_prompt = nil, selection = nil }) -- Ask with no instructions, no context
-        end
-      end
-
-      vim.ui.input({
-        prompt = "How can I help you? ",
-      }, callback)
-    end, { noremap = true, silent = true })
-
     -- Open chat
     vim.keymap.set({ "n", "x" }, "<M-c>", ":CopilotChat<CR>", { noremap = true, silent = true })
+
+    -- Open model selector
+    vim.keymap.set({ "n", "x" }, "<M-m>", ":CopilotChatModels<CR>", { noremap = true, silent = true })
   end,
 }
