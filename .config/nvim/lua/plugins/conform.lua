@@ -11,17 +11,19 @@ return {
       lua = { "stylua" },
       python = { "black", "autopep8" },
 
-      javascript = { "eslint_d" },
-      javascriptreact = { "eslint_d" },
+      javascript = { "prettierd" },
+      javascriptreact = { "prettierd" },
 
-      typescript = { "eslint_d" },
-      typescriptreact = { "eslint_d" },
+      typescript = { "prettierd" },
+      typescriptreact = { "prettierd" },
 
       go = { "goimports" },
 
       rust = { "rustfmt" },
 
       elixir = { "mix" },
+
+      css = { "prettierd" },
 
       ["_"] = { "trim_whitespace" },
     },
