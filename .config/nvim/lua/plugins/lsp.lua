@@ -77,7 +77,6 @@ return {
 
     for _, lsp in ipairs(lsps) do
       vim.lsp.config(lsp, {
-        capabilities = require("cmp_nvim_lsp").default_capabilities(),
         on_attach = function(client, bufnr)
           set_buf_lsp_keymaps(client, bufnr)
 
