@@ -15,4 +15,10 @@ return {
   "https://tpope.io/vim/fugitive.git",
 
   "christoomey/vim-tmux-navigator",
+
+  {
+    "windwp/nvim-autopairs",
+    event = "InsertEnter",
+    config = true,
+  },
 }
