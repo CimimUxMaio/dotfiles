@@ -19,7 +19,12 @@ alias ll="ls -l"
 
 ## If fzf is available, create a custom alias
 if command -v fzf &> /dev/null; then
-    alias ff='cd $(find . -type d | fzf --tmux center,70%)'
+    # Set up fzf key bindings and fuzzy completion
+    source <(fzf --zsh)
+
+    alias ff='cd $(find . -type d | fzf --tmux 80%,80%)'
+    alias fb='git checkout $(git branch | fzf --tmux 80%,80%)'
+    alias fcmd='$(history | fzf --tmux 80%,80% | sed "s/ *[0-9]* *//")'
 fi
 
 ## If eza is available, replace ls with it
