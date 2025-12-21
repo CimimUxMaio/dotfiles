@@ -21,4 +21,15 @@ return {
     event = "InsertEnter",
     config = true,
   },
+
+  {
+    "smoka7/hop.nvim",
+    version = "*",
+    opts = {
+      keys = "etovxqpdygfblzhckisuran",
+    },
+    init = function()
+      vim.keymap.set("n", "s", "<cmd>HopChar2<cr>", { silent = true, noremap = true })
+    end,
+  },
 }
