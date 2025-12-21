@@ -5,7 +5,7 @@ return {
 
   dependencies = {
     "copilot",
-    "dressing",
+    "stevearc/dressing.nvim",
     { "nvim-lua/plenary.nvim" },
   },
 

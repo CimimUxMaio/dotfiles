@@ -32,4 +32,15 @@ return {
       vim.keymap.set("n", "s", "<cmd>HopChar2<cr>", { silent = true, noremap = true })
     end,
   },
+
+  {
+    "stevearc/dressing.nvim",
+    lazy = true,
+    opts = {
+      input = {
+        relative = "editor",
+        prefer_width = 0.6,
+      },
+    },
+  },
 }
