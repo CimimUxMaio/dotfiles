@@ -59,30 +59,34 @@ local function set_buf_lsp_keymaps(client, bufnr)
 end
 
 return {
-  "williamboman/mason-lspconfig",
+  "neovim/nvim-lspconfig",
 
   dependencies = {
-    "neovim/nvim-lspconfig",
-    { "williamboman/mason.nvim", opts = {} },
     "hrsh7th/nvim-cmp",
-  },
-
-  opts = {
-    automatic_enable = true,
   },
 
   init = function()
     diagnostics_setup()
 
-    vim.lsp.config("*", {
-      capabilities = require("cmp_nvim_lsp").default_capabilities(),
-      on_attach = function(client, bufnr)
-        set_buf_lsp_keymaps(client, bufnr)
+    local lsps = {
+      "lua_ls",
+      "pyright",
+      "ts_ls",
+      "expert",
+    }
 
-        if client:supports_method("textDocument/documentHighlight") then
-          set_highlight_on_hover(bufnr)
-        end
-      end,
-    })
+    for _, lsp in ipairs(lsps) do
+      vim.lsp.config(lsp, {
+        on_attach = function(client, bufnr)
+          set_buf_lsp_keymaps(client, bufnr)
+
+          if client:supports_method("textDocument/documentHighlight") then
+            set_highlight_on_hover(bufnr)
+          end
+        end,
+      })
+    end
+
+    vim.lsp.enable(lsps)
   end,
 }

@@ -8,21 +8,6 @@ return {
   event = "InsertEnter",
 
   opts = {
-    panel = {
-      enabled = true,
-      auto_refresh = true,
-      keymap = {
-        jump_prev = "<M-k>",
-        jump_next = "<M-j>",
-        accept = "<CR>",
-        refresh = "<M-r>",
-        open = "<M-p>",
-      },
-      layout = {
-        position = "right", -- | top | left | right
-        ratio = 0.4,
-      },
-    },
     suggestion = {
       enabled = true,
       auto_trigger = true,

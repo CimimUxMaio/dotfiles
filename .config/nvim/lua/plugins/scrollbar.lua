@@ -1,17 +1,15 @@
 return {
   "petertriho/nvim-scrollbar",
 
-  name = "scrollbar",
+  dependencies = {
+    "kevinhwang91/nvim-hlslens",
+    "lewis6991/gitsigns.nvim",
+  },
 
-  dependencies = { "hlslens" },
+  opts = {},
 
-  config = function()
-    require("scrollbar").setup {
-      handle = {
-        color = "#BBBBBB",
-      },
-    }
-
+  init = function()
     require("scrollbar.handlers.search").setup()
+    require("scrollbar.handlers.gitsigns").setup()
   end,
 }
