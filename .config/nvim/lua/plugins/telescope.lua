@@ -37,6 +37,10 @@ return {
             },
           },
         },
+
+        find_files = {
+          hidden = true,
+        },
       },
     }
 
