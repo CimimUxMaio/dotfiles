@@ -2,46 +2,45 @@ return {
   "nvim-treesitter/nvim-treesitter",
 
   name = "treesitter",
+  lazy = false,
+  build = ":TSUpdate",
 
   dependencies = {
     "JoosepAlviste/nvim-ts-context-commentstring",
     "windwp/nvim-ts-autotag",
-    "nvim-treesitter/nvim-treesitter-refactor",
   },
 
+  init = function()
+    require("nvim-treesitter").setup()
+  end,
+
   config = function()
-    local configs = require("nvim-treesitter.configs")
+    require("nvim-treesitter").install { "lua", "vim", "vimdoc", "diff", "json" }
 
-    configs.setup {
-      ensure_installed = { "lua", "vim", "vimdoc", "diff", "json" },
-      sync_install = false,
-      ignore_install = { "" },
-      highlight = {
-        enable = true,
-        disable = {},
-        aditional_vim_regex_highlighting = true,
-      },
-
-      indent = { enable = true, disable = {} },
-
-      autotag = {
-        enable = true,
-      },
-
-      refactor = {
-        smart_rename = {
-          enable = true,
-          keymaps = {
-            smart_rename = "<leader>r",
-          },
-        },
+    require("nvim-ts-autotag").setup {
+      opts = {
+        enable_close = true,
+        enable_rename = true,
+        enable_close_on_slash = false,
       },
     }
 
-    -- Enable code folding using treesitter
-    local opt = vim.opt
-    opt.foldlevel = 20
-    opt.foldmethod = "expr"
-    opt.foldexpr = "nvim_treesitter#foldexpr()"
+    require("ts_context_commentstring").setup {
+      enable_autocmd = false,
+    }
+
+    vim.api.nvim_create_autocmd("FileType", {
+      pattern = "*",
+      callback = function()
+        local ok, _ = pcall(vim.treesitter.get_parser, 0)
+        if ok then
+          vim.treesitter.start()
+          vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+          vim.wo.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+          vim.wo.foldmethod = "expr"
+          vim.wo.foldlevel = 20
+        end
+      end,
+    })
   end,
 }
