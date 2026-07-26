@@ -19,12 +19,13 @@ alias ll="ls -l"
 
 ## If fzf is available, create a custom alias
 if command -v fzf &> /dev/null; then
+    export FZF_DEFAULT_OPTS="--height 80% --layout=reverse --border --margin=10%,10%"
+
     # Set up fzf key bindings and fuzzy completion
     source <(fzf --zsh)
-
-    alias ff='cd $(find . -type d | fzf --tmux 80%,80%)'
-    alias fb='git checkout $(git branch | fzf --tmux 80%,80%)'
-    alias fcmd='$(history | fzf --tmux 80%,80% | sed "s/ *[0-9]* *//")'
+    alias ff='cd $(find . -type d | fzf)'
+    alias fb='git checkout $(git branch | fzf)'
+    alias fcmd='$(history | fzf | sed "s/ *[0-9]* *//")'
 fi
 
 ## If eza is available, replace ls with it
@@ -47,6 +48,20 @@ function evaluated_len() {
     print -P "$1" | sed 's/\x1b\[[0-9;]*m//g' | wc -m
 }
 
+## Get current git branch or detached HEAD commit hash
+function git_branch() {
+    local ref
+    ref=$(git symbolic-ref --short HEAD 2>/dev/null)
+    if [[ -n $ref ]]; then
+        echo " @${ref}"
+        return
+    fi
+    local hash=$(git rev-parse --short HEAD 2>/dev/null)
+    if [[ -n $hash ]]; then
+        echo " @${hash}"
+    fi
+}
+
 ## Compute prompt before each command
 function precmd() {
     ## Status
@@ -58,6 +73,7 @@ function precmd() {
 
     ## Current directory
     prompt_cwd='%F{blue}%B[ In %b%~ %B]%b%f'
+    prompt_git='%F{yellow}%B$(git_branch)%b%f'
 
     ## Host
     prompt_host='%B%F{green}(%m)%f%b'
@@ -70,11 +86,11 @@ function precmd() {
 
     ## Compute padding size
     prompt_status_time="${prompt_status} ${prompt_time}"
-    prompt_padding_size=$(( $COLUMNS - $(evaluated_len $prompt_cwd) - $(evaluated_len $prompt_status_time) ))
+    prompt_padding_size=$(( $COLUMNS - $(evaluated_len $prompt_cwd) - $(evaluated_len $prompt_git) - $(evaluated_len $prompt_status_time) ))
     prompt_padding=$(printf "%*s" $prompt_padding_size "")
 
     ## Combine all
-    prompt_row_1="${prompt_cwd}${prompt_padding}${prompt_status_time}"
+    prompt_row_1="${prompt_cwd}${prompt_git}${prompt_padding}${prompt_status_time}"
     prompt_row_2="${prompt_host} ${prompt_symbol}"
     PROMPT="${prompt_row_1}"$'\n'"${prompt_row_2} "
 }
