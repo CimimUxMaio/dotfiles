@@ -45,7 +45,7 @@ setopt PROMPT_SUBST
 
 ## Evaluate length of string with ANSI escape codes
 function evaluated_len() {
-    print -P "$1" | sed 's/\x1b\[[0-9;]*m//g' | wc -m
+    print -nP "$1" | sed 's/\x1b\[[0-9;]*m//g' | wc -m
 }
 
 ## Get current git branch or detached HEAD commit hash
@@ -87,10 +87,23 @@ function precmd() {
     ## Compute padding size
     prompt_status_time="${prompt_status} ${prompt_time}"
     prompt_padding_size=$(( $COLUMNS - $(evaluated_len $prompt_cwd) - $(evaluated_len $prompt_git) - $(evaluated_len $prompt_status_time) ))
-    prompt_padding=$(printf "%*s" $prompt_padding_size "")
 
-    ## Combine all
-    prompt_row_1="${prompt_cwd}${prompt_git}${prompt_padding}${prompt_status_time}"
+    if [ $prompt_padding_size -ge 0 ]; then
+        prompt_padding=$(printf "%*s" $prompt_padding_size "")
+        prompt_row_1="${prompt_cwd}${prompt_git}${prompt_padding}${prompt_status_time}"
+    else
+        prompt_padding_size=$(( $COLUMNS - $(evaluated_len $prompt_cwd) - $(evaluated_len $prompt_git) - $(evaluated_len $prompt_status) ))
+        if [ $prompt_padding_size -ge 0 ]; then
+            prompt_padding=$(printf "%*s" $prompt_padding_size "")
+            prompt_row_1="${prompt_cwd}${prompt_git}${prompt_padding}${prompt_status}"
+        else
+            prompt_cwd='%F{blue}%B[ In .../%2~ %B]%b%f'
+            prompt_padding_size=$(( $COLUMNS - $(evaluated_len $prompt_cwd) - $(evaluated_len $prompt_git) - $(evaluated_len $prompt_status) ))
+            [ $prompt_padding_size -lt 0 ] && prompt_padding_size=0
+            prompt_padding=$(printf "%*s" $prompt_padding_size "")
+            prompt_row_1="${prompt_cwd}${prompt_git}${prompt_padding}${prompt_status}"
+        fi
+    fi
     prompt_row_2="${prompt_host} ${prompt_symbol}"
     PROMPT="${prompt_row_1}"$'\n'"${prompt_row_2} "
 }
